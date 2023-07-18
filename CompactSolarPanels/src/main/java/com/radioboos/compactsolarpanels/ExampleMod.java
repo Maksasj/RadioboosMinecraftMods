@@ -1,6 +1,5 @@
 package com.radioboos.compactsolarpanels;
 
-import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -11,8 +10,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 
 @Mod(modid = ExampleMod.MODID, version = ExampleMod.VERSION)
-public class ExampleMod
-{
+public class ExampleMod {
     public static final String MODID = "examplemod";
     public static final String VERSION = "1.0";
 
@@ -29,7 +27,7 @@ public class ExampleMod
         Block compactSolarBlock = new BlockExample(Material.rock);
 
         GameRegistry.registerBlock(compactSolarBlock, ItemCompactSolar.class, "CompactSolarBlock");
-        GameRegistry.registerTileEntity(BasePanel.class, "CompactSolarTileEntity");
+        GameRegistry.registerTileEntity(BasePanelEntity.class, "CompactSolarTileEntity");
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }

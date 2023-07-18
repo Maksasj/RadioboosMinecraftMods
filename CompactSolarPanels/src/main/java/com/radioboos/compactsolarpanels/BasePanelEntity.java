@@ -1,19 +1,14 @@
 package com.radioboos.compactsolarpanels;
 
-import com.ibm.icu.impl.duration.impl.Utils;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.tile.IWrenchable;
 import ic2.api.energy.prefab.BasicSource;
 
-import java.io.Console;
 import java.util.Random;
 
-import jdk.nashorn.internal.runtime.Debug;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerChest;
+import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,7 +17,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import javax.annotation.Nonnull;
 
-public class BasePanel extends TileEntity implements IWrenchable {
+public class BasePanelEntity extends TileEntity implements IWrenchable, IInventory {
     private BasicSource energySource;
     private static Random random = new Random();
     private ItemStack[] inventory;
@@ -32,19 +27,14 @@ public class BasePanel extends TileEntity implements IWrenchable {
     private boolean canRain;
     private boolean noSunlight;
 
-    public Container container;
+    // public SolarPanelContainer container;
 
-    public BasePanel() {
+    public BasePanelEntity() {
         super();
         this.inventory = new ItemStack[1];
         this.tick = random.nextInt(64);
         this.energySource = new BasicSource(this, 10000, 6);
-        this.container = new Container() {
-            @Override
-            public boolean canInteractWith(EntityPlayer p_75145_1_) {
-                return true;
-            }
-        };
+        // this.container = new SolarPanelContainer();
     }
 
     @Override
@@ -169,5 +159,65 @@ public class BasePanel extends TileEntity implements IWrenchable {
     public void invalidate() {
         energySource.onInvalidate();
         super.invalidate();
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return 0;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int p_70301_1_) {
+        return null;
+    }
+
+    @Override
+    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+        return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+
+    }
+
+    @Override
+    public String getInventoryName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 0;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return false;
+    }
+
+    @Override
+    public void openInventory() {
+
+    }
+
+    @Override
+    public void closeInventory() {
+
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return false;
     }
 }

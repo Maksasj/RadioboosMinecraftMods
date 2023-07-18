@@ -1,14 +1,26 @@
 package com.radioboos.compactsolarpanels;
 
+import com.ibm.icu.impl.duration.impl.Utils;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.tile.IWrenchable;
 import ic2.api.energy.prefab.BasicSource;
+
+import java.io.Console;
 import java.util.Random;
 
+import jdk.nashorn.internal.runtime.Debug;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerChest;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+
+import javax.annotation.Nonnull;
 
 public class BasePanel extends TileEntity implements IWrenchable {
     private BasicSource energySource;
@@ -20,11 +32,19 @@ public class BasePanel extends TileEntity implements IWrenchable {
     private boolean canRain;
     private boolean noSunlight;
 
+    public Container container;
+
     public BasePanel() {
         super();
         this.inventory = new ItemStack[1];
         this.tick = random.nextInt(64);
-        this.energySource = new BasicSource(this, 10000, 100);
+        this.energySource = new BasicSource(this, 10000, 6);
+        this.container = new Container() {
+            @Override
+            public boolean canInteractWith(EntityPlayer p_75145_1_) {
+                return true;
+            }
+        };
     }
 
     @Override
@@ -60,7 +80,7 @@ public class BasePanel extends TileEntity implements IWrenchable {
     }
 
     private int generateEnergy() {
-        return 512;
+        return 96000;
     }
 
     public ItemStack[] getContents() {
@@ -132,6 +152,17 @@ public class BasePanel extends TileEntity implements IWrenchable {
     @Override
     public void onChunkUnload() {
         energySource.onChunkUnload();
+    }
+
+    // @SideOnly(Side.CLIENT)
+    // public GuiScreen getGui(EntityPlayer player, boolean isAdmin) {
+    //     return new GUISolar(container);
+    //     // return new BackgroundlessDynamicGUI();
+    // }
+
+    @Nonnull
+    protected String getGuiDef() {
+        return "solar_panel_overtime";
     }
 
     @Override

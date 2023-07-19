@@ -8,16 +8,25 @@ import net.minecraft.world.World;
 public class GuiHandler implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+        TileEntity entity = world.getTileEntity(x, y, z);
+
+        if (entity != null && entity instanceof BasePanelEntity) {
+            BasePanelEntity tile = (BasePanelEntity) entity;
+            return new SolarPanelContainer(player.inventory, tile);
+        }
+
         return null;
     }
 
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        if (ID == GuiSolarPanel.GUI_ID) {
-            System.out.print("create gui.\n");
-            BasePanelEntity block = (BasePanelEntity) world.getTileEntity(x, y, z);
-            return new GuiSolarPanel(new SolarPanelContainer(player.inventory, block));
+        TileEntity entity = world.getTileEntity(x, y, z);
+
+        if (entity != null && entity instanceof BasePanelEntity) {
+            BasePanelEntity tile = (BasePanelEntity) entity;
+            return new GuiSolarPanel(new SolarPanelContainer(player.inventory, tile));
         }
+
         return null;
     }
 }

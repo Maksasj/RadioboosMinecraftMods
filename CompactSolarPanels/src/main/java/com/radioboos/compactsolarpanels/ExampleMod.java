@@ -4,7 +4,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -24,7 +23,7 @@ public class ExampleMod {
     @EventHandler
     public void preinit(FMLPreInitializationEvent event)
     {
-        Block compactSolarBlock = new BlockExample(Material.rock);
+        Block compactSolarBlock = new BlockExample();
 
         GameRegistry.registerBlock(compactSolarBlock, ItemCompactSolar.class, "CompactSolarBlock");
         GameRegistry.registerTileEntity(BasePanelEntity.class, "CompactSolarTileEntity");
@@ -33,13 +32,13 @@ public class ExampleMod {
     }
 
     @EventHandler
-    public void load(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event)
+    {
 
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
-    {
+    public void load(FMLInitializationEvent event) {
 
     }
 }

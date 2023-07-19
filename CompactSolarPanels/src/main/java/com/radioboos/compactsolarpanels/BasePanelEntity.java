@@ -6,10 +6,8 @@ import ic2.api.energy.prefab.BasicSource;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ContainerChest;
-import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -32,6 +30,9 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
     public BasePanelEntity() {
         super();
         this.inventory = new ItemStack[1];
+
+        this.setInventorySlotContents(0, new ItemStack(new ItemBook(), 13));
+
         this.tick = random.nextInt(64);
         this.energySource = new BasicSource(this, 10000, 6);
         // this.container = new SolarPanelContainer();
@@ -109,6 +110,7 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
     @Override
     public void writeToNBT(NBTTagCompound nbttagcompound) {
         super.writeToNBT(nbttagcompound);
+        /*
         NBTTagList nbttaglist = new NBTTagList();
         for (int i = 0; i < inventory.length; i++) {
             if (inventory[i] != null) {
@@ -121,6 +123,7 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
 
         nbttagcompound.setTag("Items", nbttaglist);
         energySource.onWriteToNbt(nbttagcompound);
+        */
     }
 
     @Override
@@ -163,7 +166,7 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
 
     @Override
     public int getSizeInventory() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -198,12 +201,12 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
 
     @Override
     public int getInventoryStackLimit() {
-        return 0;
+        return 64;
     }
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-        return false;
+        return true;
     }
 
     @Override
@@ -218,6 +221,6 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
 
     @Override
     public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
-        return false;
+        return true;
     }
 }

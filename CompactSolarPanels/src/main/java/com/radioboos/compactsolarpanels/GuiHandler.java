@@ -24,7 +24,7 @@ public class GuiHandler implements IGuiHandler {
 
         if (entity != null && entity instanceof BasePanelEntity) {
             BasePanelEntity tile = (BasePanelEntity) entity;
-            return new GuiSolarPanel(new SolarPanelContainer(player.inventory, tile));
+            return new GuiSolarPanel(tile, new SolarPanelContainer(player.inventory, tile));
         }
 
         return null;

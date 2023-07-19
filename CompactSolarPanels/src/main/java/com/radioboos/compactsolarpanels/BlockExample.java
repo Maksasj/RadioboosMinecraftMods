@@ -62,13 +62,8 @@ public class BlockExample extends BlockContainer {
     }
 
     @Override
-    public TileEntity createTileEntity(World world, int metadata) {
+    public TileEntity createNewTileEntity(World world, int metadata) {
         entity = new BasePanelEntity();
         return entity;
-    }
-
-    @Override
-    public TileEntity createNewTileEntity(World world, int metadata) {
-        return null;
     }
 }

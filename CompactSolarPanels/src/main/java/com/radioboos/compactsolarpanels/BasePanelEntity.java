@@ -1,9 +1,16 @@
 package com.radioboos.compactsolarpanels;
 
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.tile.IEnergySource;
+import ic2.api.info.Info;
+import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
-import ic2.api.energy.prefab.BasicSource;
 
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,74 +19,154 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.ForgeDirection;
+import org.lwjgl.Sys;
 
-public class BasePanelEntity extends TileEntity implements IWrenchable, IInventory {
-    private BasicSource energySource;
-    private static Random random = new Random();
+public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenchable, IInventory {
+    private static final Random random = new Random();
+
     private ItemStack[] inventory;
     private boolean initialized;
-    public boolean theSunIsVisible;
     private int tick;
     private boolean canRain;
     private boolean noSunlight;
 
-    // public SolarPanelContainer container;
+
+    private boolean theSkyIsVisible;
+    private boolean theSunIsVisible;
+
+
+    private final double energyCapacity;
+    private final double energyMaxDrain;
+    private final double energyDayProduction;
+    private final double energyNightProduction;
+    private double energyStored;
+
+
+    private boolean addedToEnet;
 
     public BasePanelEntity() {
         super();
+
         this.inventory = new ItemStack[4];
         this.tick = random.nextInt(64);
-        this.energySource = new BasicSource(this, 256000, 6);
+
+        this.theSkyIsVisible = false;
+        this.theSunIsVisible = false;
+
+        this.energyCapacity = 256000;
+        this.energyStored = 0;
+        this.energyMaxDrain = 10000;
+        this.energyDayProduction = 1000;
+        this.energyNightProduction = 100;
+
+        this.addedToEnet = false;
+    }
+
+    public double getEnergyStored() {
+        return this.energyStored;
+    }
+
+    public double getEnergyCapacity() {
+        return this.energyCapacity;
+    }
+
+    public double getEnergyMaxDrain() {
+        return this.energyMaxDrain;
+    }
+
+    public double getEnergyProduction() {
+        if(!this.theSkyIsVisible) {
+            return 0;
+        }
+
+        if(!this.theSunIsVisible) {
+            return this.energyNightProduction;
+        }
+
+        return this.energyDayProduction;
+    }
+
+    public boolean isSkyIsVisible() {
+        return theSkyIsVisible;
+    }
+
+    public boolean isSunIsVisible() {
+        return theSunIsVisible;
     }
 
     @Override
     public void updateEntity() {
-        energySource.updateEntity();
+        if (!addedToEnet)
+            onLoaded();
 
-        if (!initialized && worldObj != null) {
-            canRain = worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0;
-            noSunlight = worldObj.provider.hasNoSky;
-            initialized = true;
+        if (!this.initialized && this.worldObj != null) {
+            this.canRain = this.worldObj.getWorldChunkManager().getBiomeGenAt(this.xCoord, this.zCoord).getIntRainfall() > 0;
+            this.noSunlight = this.worldObj.provider.hasNoSky;
+            this.initialized = true;
         }
 
-        if (noSunlight) {
+        if (this.noSunlight)
             return;
-        }
 
-        if (tick-- == 0) {
+        if (this.tick-- == 0) {
             updateSunState();
-            tick = 64;
+            this.tick = 64;
         }
 
-        int energyProduction = 0;
+        this.energyStored += this.getEnergyProduction();
+        this.energyStored = Math.min(this.energyStored, this.energyCapacity);
 
-        if (theSunIsVisible) {
-            energyProduction = generateEnergy();
-        }
-
-        energySource.addEnergy(energyProduction);
-
-        for (ItemStack itemStack : inventory) {
-            if(itemStack == null || !(itemStack.getItem() instanceof IElectricItem)) {
+        for (ItemStack itemStack : this.inventory) {
+            if(itemStack == null || !(itemStack.getItem() instanceof IElectricItem))
                 continue;
-            }
 
-            energySource.charge(itemStack);
+            charge(itemStack);
         }
     }
+
+    private void charge(ItemStack item) {
+        double energyToTransfer = Math.min(this.energyStored, this.energyMaxDrain);
+        double energyTransferred = ElectricItem.manager.charge(item, energyToTransfer, this.getSourceTier(), false, false);
+        this.energyStored -= energyTransferred;
+    }
+
+    public void onLoaded() {
+        if (!this.addedToEnet &&
+                !FMLCommonHandler.instance().getEffectiveSide().isClient() &&
+                Info.isIc2Available()) {
+
+            this.worldObj = this.getWorldObj();
+
+            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+
+            this.addedToEnet = true;
+        }
+    }
+
+
+    public boolean isDaytime(World world) {
+        long time = world.getWorldTime() % 24000;
+        
+        return time >= 0 && time < 12000;
+    }
+
 
     private void updateSunState() {
-        boolean isRaining = canRain && (worldObj.isRaining() || worldObj.isThundering());
-        theSunIsVisible = worldObj.isDaytime() && !isRaining && worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord);
-    }
+        boolean isRaining = this.canRain && (this.worldObj.isRaining() || this.worldObj.isThundering());
 
-    private int generateEnergy() {
-        return 1;
+        this.theSkyIsVisible = this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord);
+
+        System.out.println(this.isDaytime(this.getWorldObj()) + " | " + !isRaining + " | " + this.theSkyIsVisible);
+
+        this.theSunIsVisible = this.isDaytime(this.getWorldObj()) && !isRaining && this.theSkyIsVisible;
     }
 
     public ItemStack[] getContents() {
-        return inventory;
+        return this.inventory;
     }
 
     @Override
@@ -132,73 +219,55 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
 
         compound.setTag("Inventory", tagList);
 
-        energySource.writeToNBT(compound);
+        // energySource.writeToNBT(compound);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        System.out.println(compound.toString());
-
         super.readFromNBT(compound);
 
         NBTTagList tagList = compound.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
 
-        inventory = new ItemStack[getSizeInventory()];
-
-        System.out.println(tagList.tagCount());
+        this.inventory = new ItemStack[getSizeInventory()];
 
         for (int itemCount = 0; itemCount < tagList.tagCount(); itemCount++)  {
             NBTTagCompound itemCompound = tagList.getCompoundTagAt(itemCount);
             int slot = itemCompound.getByte("Slot") & 0xff;
 
             if (slot >= 0 && slot < this.inventory.length) {
-                System.out.println("Loading item stack from nbt");
-
                 this.inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
             }
         }
 
-        energySource.readFromNBT(compound);
-    }
-
-    @Override
-    public void onChunkUnload() {
-        energySource.onChunkUnload();
-        super.onChunkUnload();
-    }
-
-    @Override
-    public void invalidate() {
-        energySource.invalidate();
-        super.invalidate();
+        // energySource.readFromNBT(compound);
     }
 
     @Override
     public int getSizeInventory() {
-        return inventory.length;
+        return this.inventory.length;
     }
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        return inventory[index];
+        return this.inventory[index];
     }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        if(inventory[index] == null) {
+        if(this.inventory[index] == null) {
             return null;
         }
 
-        if(inventory[index].stackSize <= count) {
+        if(this.inventory[index].stackSize <= count) {
             ItemStack itemStack = inventory[index];
             inventory[index] = null;
             return itemStack;
         }
 
-        ItemStack itemStack1 = inventory[index].splitStack(count);
+        ItemStack itemStack1 = this.inventory[index].splitStack(count);
 
-        if (inventory[index].stackSize == 0) {
-            inventory[index] = null;
+        if (this.inventory[index].stackSize == 0) {
+            this.inventory[index] = null;
         }
 
         return itemStack1;
@@ -217,7 +286,7 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        inventory[index] = stack;
+        this.inventory[index] = stack;
 
         if(stack != null && stack.stackSize > getInventoryStackLimit()) {
             stack.stackSize = getInventoryStackLimit();
@@ -260,6 +329,26 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
             return false;
         }
 
+        return true;
+    }
+
+    @Override
+    public double getOfferedEnergy() {
+        return Math.min(this.energyStored, this.energyMaxDrain);
+    }
+
+    @Override
+    public void drawEnergy(double energyAmount) {
+        this.energyStored -= energyAmount;
+    }
+
+    @Override
+    public int getSourceTier() {
+        return 6;
+    }
+
+    @Override
+    public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
         return true;
     }
 }

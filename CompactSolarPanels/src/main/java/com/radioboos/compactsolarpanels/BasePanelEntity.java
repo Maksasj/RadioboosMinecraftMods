@@ -1,5 +1,6 @@
 package com.radioboos.compactsolarpanels;
 
+import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
 import ic2.api.energy.prefab.BasicSource;
 
@@ -7,13 +8,11 @@ import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-
-import javax.annotation.Nonnull;
+import net.minecraftforge.common.util.Constants;
 
 public class BasePanelEntity extends TileEntity implements IWrenchable, IInventory {
     private BasicSource energySource;
@@ -29,40 +28,45 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
 
     public BasePanelEntity() {
         super();
-        this.inventory = new ItemStack[1];
-
-        this.setInventorySlotContents(0, new ItemStack(new ItemBook(), 13));
-
+        this.inventory = new ItemStack[4];
         this.tick = random.nextInt(64);
-        this.energySource = new BasicSource(this, 10000, 6);
-        // this.container = new SolarPanelContainer();
+        this.energySource = new BasicSource(this, 256000, 6);
     }
 
     @Override
     public void updateEntity() {
-        energySource.onUpdateEntity();
+        energySource.updateEntity();
+
         if (!initialized && worldObj != null) {
             canRain = worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0;
             noSunlight = worldObj.provider.hasNoSky;
             initialized = true;
         }
+
         if (noSunlight) {
             return;
         }
+
         if (tick-- == 0) {
             updateSunState();
             tick = 64;
         }
+
         int energyProduction = 0;
 
-        if (theSunIsVisible && (1 == 1 || random.nextInt(5) == 0)) {
+        if (theSunIsVisible) {
             energyProduction = generateEnergy();
         }
+
         energySource.addEnergy(energyProduction);
 
-        // if (inventory[0] != null && (Item.itemsList[inventory[0].itemID] instanceof IElectricItem)) {
-        //     energySource.charge(inventory[0]);
-        // }
+        for (ItemStack itemStack : inventory) {
+            if(itemStack == null || !(itemStack.getItem() instanceof IElectricItem)) {
+                continue;
+            }
+
+            energySource.charge(itemStack);
+        }
     }
 
     private void updateSunState() {
@@ -71,7 +75,7 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
     }
 
     private int generateEnergy() {
-        return 96000;
+        return 1;
     }
 
     public ItemStack[] getContents() {
@@ -90,6 +94,7 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
 
     @Override
     public void setFacing(short facing) {
+
     }
 
     @Override
@@ -108,85 +113,115 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbttagcompound) {
-        super.writeToNBT(nbttagcompound);
-        /*
-        NBTTagList nbttaglist = new NBTTagList();
-        for (int i = 0; i < inventory.length; i++) {
-            if (inventory[i] != null) {
-                NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-                nbttagcompound1.setByte("Slot", (byte) i);
-                inventory[i].writeToNBT(nbttagcompound1);
-                nbttaglist.appendTag(nbttagcompound1);
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+
+        NBTTagList tagList = new NBTTagList();
+
+        for (int slot = 0; slot < this.inventory.length; slot++) {
+            if (this.inventory[slot] != null) {
+                NBTTagCompound itemCompound = new NBTTagCompound();
+
+                itemCompound.setByte("Slot", (byte) slot);
+
+                this.inventory[slot].writeToNBT(itemCompound);
+
+                tagList.appendTag(itemCompound);
             }
         }
 
-        nbttagcompound.setTag("Items", nbttaglist);
-        energySource.onWriteToNbt(nbttagcompound);
-        */
+        compound.setTag("Inventory", tagList);
+
+        energySource.writeToNBT(compound);
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbttagcompound) {
-        super.readFromNBT(nbttagcompound);
+    public void readFromNBT(NBTTagCompound compound) {
+        System.out.println(compound.toString());
 
-        // energySource.onReadFromNbt(nbttagcompound);
-        // NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
-        // inventory = new ItemStack[getSizeInventory()];
-        // for (int i = 0; i < nbttaglist.tagCount(); i++) {
-        //     // NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
-        //     // int j = nbttagcompound1.getByte("Slot") & 0xff;
-        //     // if (j >= 0 && j < inventory.length) {
-        //     //     inventory[j] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
-        //     // }
-        // }
+        super.readFromNBT(compound);
+
+        NBTTagList tagList = compound.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
+
+        inventory = new ItemStack[getSizeInventory()];
+
+        System.out.println(tagList.tagCount());
+
+        for (int itemCount = 0; itemCount < tagList.tagCount(); itemCount++)  {
+            NBTTagCompound itemCompound = tagList.getCompoundTagAt(itemCount);
+            int slot = itemCompound.getByte("Slot") & 0xff;
+
+            if (slot >= 0 && slot < this.inventory.length) {
+                System.out.println("Loading item stack from nbt");
+
+                this.inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
+            }
+        }
+
+        energySource.readFromNBT(compound);
     }
 
     @Override
     public void onChunkUnload() {
         energySource.onChunkUnload();
-    }
-
-    // @SideOnly(Side.CLIENT)
-    // public GuiScreen getGui(EntityPlayer player, boolean isAdmin) {
-    //     return new GUISolar(container);
-    //     // return new BackgroundlessDynamicGUI();
-    // }
-
-    @Nonnull
-    protected String getGuiDef() {
-        return "solar_panel_overtime";
+        super.onChunkUnload();
     }
 
     @Override
     public void invalidate() {
-        energySource.onInvalidate();
+        energySource.invalidate();
         super.invalidate();
     }
 
     @Override
     public int getSizeInventory() {
-        return 1;
+        return inventory.length;
     }
 
     @Override
-    public ItemStack getStackInSlot(int p_70301_1_) {
-        return null;
+    public ItemStack getStackInSlot(int index) {
+        return inventory[index];
     }
 
     @Override
-    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-        return null;
+    public ItemStack decrStackSize(int index, int count) {
+        if(inventory[index] == null) {
+            return null;
+        }
+
+        if(inventory[index].stackSize <= count) {
+            ItemStack itemStack = inventory[index];
+            inventory[index] = null;
+            return itemStack;
+        }
+
+        ItemStack itemStack1 = inventory[index].splitStack(count);
+
+        if (inventory[index].stackSize == 0) {
+            inventory[index] = null;
+        }
+
+        return itemStack1;
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-        return null;
+    public ItemStack getStackInSlotOnClosing(int index) {
+        if (this.inventory[index] == null) {
+            return null;
+        }
+
+        ItemStack stack = this.inventory[index];
+        this.inventory[index] = null;
+        return stack;
     }
 
     @Override
-    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        inventory[index] = stack;
 
+        if(stack != null && stack.stackSize > getInventoryStackLimit()) {
+            stack.stackSize = getInventoryStackLimit();
+        }
     }
 
     @Override
@@ -220,7 +255,11 @@ public class BasePanelEntity extends TileEntity implements IWrenchable, IInvento
     }
 
     @Override
-    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        if(stack == null || !(stack.getItem() instanceof IElectricItem)) {
+            return false;
+        }
+
         return true;
     }
 }

@@ -1,21 +1,26 @@
 package com.radioboos.compactsolarpanels;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockExample extends BlockContainer {
+
+    private BasePanelEntity entity;
+
     public BlockExample() {
         super(Material.rock);
+
         setBlockName("mainBlock");
         setCreativeTab(CreativeTabs.tabRedstone);
+
+        entity = null;
     }
 
     @Override
@@ -34,8 +39,32 @@ public class BlockExample extends BlockContainer {
     }
 
     @Override
+    public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
+        super.onBlockPreDestroy(world, x, y, z, meta);
+
+        if(entity == null)
+            return;
+
+        for(ItemStack stack : entity.getContents()) {
+            if(stack == null)
+                continue;
+
+            if (!world.isRemote && stack != null && stack.stackSize > 0) {
+                EntityItem entityItem = new EntityItem(world, x, y, z, stack.copy());
+
+                entityItem.motionX = 0;
+                entityItem.motionY = 0;
+                entityItem.motionZ = 0;
+
+                world.spawnEntityInWorld(entityItem);
+            }
+        }
+    }
+
+    @Override
     public TileEntity createTileEntity(World world, int metadata) {
-        return new BasePanelEntity();
+        entity = new BasePanelEntity();
+        return entity;
     }
 
     @Override

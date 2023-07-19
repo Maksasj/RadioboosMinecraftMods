@@ -7,7 +7,8 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class GuiSolarPanel extends GuiContainer {
-    public static final ResourceLocation guiTexture = new ResourceLocation("textures/gui/container/furnace.png");
+    public static final ResourceLocation guiTexture = new ResourceLocation("compactsolarpanels", "textures/gui/GUICompactSolarPanels.png");
+
     public static final int GUI_ID = 0;
 
     public GuiSolarPanel(Container container) {
@@ -27,9 +28,10 @@ public class GuiSolarPanel extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float p_146976_1_, int p_146976_2_, int p_146976_3_) {
         GL11.glColor4f(1.0f, 1.0f ,1.0f, 1.0f);
+
         this.mc.getTextureManager().bindTexture(guiTexture);
-        int k = (width - this.xSize) / 2;
-        int l = (height - this.ySize) / 2;
-        drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);
+        int xStart = (width - this.xSize) / 2 - 9;
+        int yStart = (height - this.ySize) / 2 - 2;
+        drawTexturedModalRect(xStart, yStart, 0, 0, 194, 168);
     }
 }

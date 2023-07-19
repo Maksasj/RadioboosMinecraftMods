@@ -3,15 +3,9 @@ package com.radioboos.compactsolarpanels;
 import ibxm.Player;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemStack;
-import org.lwjgl.Sys;
-
-import java.io.Console;
-import java.util.List;
 
 public class SolarPanelContainer extends Container {
     private BasePanelEntity panel;
@@ -19,7 +13,10 @@ public class SolarPanelContainer extends Container {
     public SolarPanelContainer(IInventory playerInventory, BasePanelEntity panel) {
         this.panel = panel;
 
-        addSlotToContainer(new Slot(panel, 0, 80, 26));
+        addSlotToContainer(new Slot(panel, 0, 8, 57));
+        addSlotToContainer(new Slot(panel, 1, 26, 57));
+        addSlotToContainer(new Slot(panel, 2, 44, 57));
+        addSlotToContainer(new Slot(panel, 3, 62, 57));
 
         for (int inventoryRow = 0; inventoryRow < 3; inventoryRow++) {
             for (int inventoryColumn = 0; inventoryColumn < 9; inventoryColumn++) {
@@ -39,7 +36,6 @@ public class SolarPanelContainer extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-        System.out.println(index);
         ItemStack itemstack = null;
         Slot slot = (Slot) this.inventorySlots.get(index);
 

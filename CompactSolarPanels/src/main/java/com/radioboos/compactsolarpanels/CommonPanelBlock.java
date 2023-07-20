@@ -1,5 +1,7 @@
 package com.radioboos.compactsolarpanels;
 
+import com.radioboos.compactsolarpanels.creative.tabs.CreativeTabRegister;
+import com.radioboos.compactsolarpanels.gui.GuiSolarPanel;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
@@ -13,17 +15,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import javax.swing.*;
+public class CommonPanelBlock extends BlockContainer {
+    private CommonPanelTileEntity entity;
 
-public class BlockExample extends BlockContainer {
-
-    private BasePanelEntity entity;
-
-    public BlockExample() {
+    public CommonPanelBlock() {
         super(Material.rock);
 
         setBlockName("mainBlock");
-        setCreativeTab(CreativeTabs.tabRedstone);
+        setCreativeTab(CreativeTabRegister.COMPACT_SOLAR_PANELS_CREATIVE_TAB);
 
         entity = null;
     }
@@ -92,7 +91,7 @@ public class BlockExample extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World world, int metadata) {
-        entity = new BasePanelEntity();
+        entity = new CommonPanelTileEntity();
         return entity;
     }
 }

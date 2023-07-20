@@ -1,6 +1,5 @@
 package com.radioboos.compactsolarpanels;
 
-import ibxm.Player;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -8,9 +7,9 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class SolarPanelContainer extends Container {
-    private BasePanelEntity panel;
+    private CommonPanelTileEntity panel;
 
-    public SolarPanelContainer(IInventory playerInventory, BasePanelEntity panel) {
+    public SolarPanelContainer(IInventory playerInventory, CommonPanelTileEntity panel) {
         this.panel = panel;
 
         addSlotToContainer(new Slot(panel, 0, 8, 57));

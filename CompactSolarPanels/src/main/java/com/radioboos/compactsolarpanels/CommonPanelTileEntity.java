@@ -1,17 +1,13 @@
 package com.radioboos.compactsolarpanels;
 
+import com.radioboos.compactsolarpanels.common.Utils;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.info.Info;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
-
-import java.util.List;
-import java.util.Random;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -22,26 +18,22 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
-import org.lwjgl.Sys;
 
-public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenchable, IInventory {
-    private static final Random random = new Random();
+import static com.radioboos.compactsolarpanels.common.Utils.isDaytime;
 
+public class CommonPanelTileEntity extends TileEntity implements IEnergySource, IWrenchable, IInventory {
     private ItemStack[] inventory;
     private boolean initialized;
     private int tick;
     private boolean canRain;
     private boolean noSunlight;
-
-
     private boolean theSkyIsVisible;
     private boolean theSunIsVisible;
 
-
+    // Energy stuff
     private final double energyCapacity;
     private final double energyMaxDrain;
     private final double energyDayProduction;
@@ -51,11 +43,11 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
 
     private boolean addedToEnet;
 
-    public BasePanelEntity() {
+    public CommonPanelTileEntity() {
         super();
 
         inventory = new ItemStack[4];
-        tick = random.nextInt(64);
+        tick = Utils.random.nextInt(64);
 
         theSkyIsVisible = false;
         theSunIsVisible = false;
@@ -69,18 +61,6 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
         addedToEnet = false;
     }
 
-    public double getEnergyStored() {
-        return energyStored;
-    }
-
-    public double getEnergyCapacity() {
-        return energyCapacity;
-    }
-
-    public double getEnergyMaxDrain() {
-        return energyMaxDrain;
-    }
-
     public double getEnergyProduction() {
         if(!theSkyIsVisible) {
             return 0;
@@ -91,14 +71,6 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
         }
 
         return energyDayProduction;
-    }
-
-    public boolean isSkyIsVisible() {
-        return theSkyIsVisible;
-    }
-
-    public boolean isSunIsVisible() {
-        return theSunIsVisible;
     }
 
     @Override
@@ -130,7 +102,6 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
             charge(itemStack);
         }
 
-        // worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         worldObj.markAndNotifyBlock(xCoord, yCoord, zCoord, worldObj.getChunkFromBlockCoords(xCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), 2);
 
         markDirty();
@@ -168,16 +139,31 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
         addedToEnet = true;
     }
 
-    public static boolean isDaytime(World world) {
-        long time = world.getWorldTime() % 24000;
-        return time >= 0 && time < 12000;
-    }
-
     private void updateSunState() {
         boolean isRaining = canRain && (worldObj.isRaining() || worldObj.isThundering());
 
         theSkyIsVisible = worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord);
         theSunIsVisible = isDaytime(getWorldObj()) && !isRaining && theSkyIsVisible;
+    }
+
+    public double getEnergyStored() {
+        return energyStored;
+    }
+
+    public double getEnergyCapacity() {
+        return energyCapacity;
+    }
+
+    public double getEnergyMaxDrain() {
+        return energyMaxDrain;
+    }
+
+    public boolean isSkyIsVisible() {
+        return theSkyIsVisible;
+    }
+
+    public boolean isSunIsVisible() {
+        return theSunIsVisible;
     }
 
     public ItemStack[] getContents() {
@@ -323,7 +309,7 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+    public boolean isUseableByPlayer(EntityPlayer player) {
         return true;
     }
 
@@ -347,6 +333,11 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
     }
 
     @Override
+    public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
+        return true;
+    }
+
+    @Override
     public double getOfferedEnergy() {
         return Math.min(energyStored, energyMaxDrain);
     }
@@ -361,8 +352,4 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
         return 6;
     }
 
-    @Override
-    public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
-        return true;
-    }
 }

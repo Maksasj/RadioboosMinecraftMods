@@ -1,21 +1,17 @@
-package com.radioboos.compactsolarpanels;
+package com.radioboos.compactsolarpanels.gui;
 
-import ic2.api.energy.prefab.BasicSource;
-import ic2.api.energy.tile.IEnergySource;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
+import com.radioboos.compactsolarpanels.CommonPanelTileEntity;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.Sys;
 import org.lwjgl.opengl.GL11;
 
 public class GuiSolarPanel extends GuiContainer {
     public static final ResourceLocation guiTexture = new ResourceLocation("compactsolarpanels", "textures/gui/GUICompactSolarPanels.png");
-    private BasePanelEntity entity;
+    private CommonPanelTileEntity entity;
     public static final int GUI_ID = 0;
 
-    public GuiSolarPanel(BasePanelEntity entity, Container container) {
+    public GuiSolarPanel(CommonPanelTileEntity entity, Container container) {
         super(container);
 
         this.entity = entity;

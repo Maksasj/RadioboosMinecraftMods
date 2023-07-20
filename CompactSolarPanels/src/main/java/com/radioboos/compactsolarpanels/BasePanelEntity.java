@@ -18,6 +18,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -51,43 +54,43 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
     public BasePanelEntity() {
         super();
 
-        this.inventory = new ItemStack[4];
-        this.tick = random.nextInt(64);
+        inventory = new ItemStack[4];
+        tick = random.nextInt(64);
 
-        this.theSkyIsVisible = false;
-        this.theSunIsVisible = false;
+        theSkyIsVisible = false;
+        theSunIsVisible = false;
 
-        this.energyCapacity = 256000;
-        this.energyStored = 0;
-        this.energyMaxDrain = 10000;
-        this.energyDayProduction = 1000;
-        this.energyNightProduction = 100;
+        energyCapacity = 256000;
+        energyStored = 0;
+        energyMaxDrain = 10000;
+        energyDayProduction = 1000;
+        energyNightProduction = 100;
 
-        this.addedToEnet = false;
+        addedToEnet = false;
     }
 
     public double getEnergyStored() {
-        return this.energyStored;
+        return energyStored;
     }
 
     public double getEnergyCapacity() {
-        return this.energyCapacity;
+        return energyCapacity;
     }
 
     public double getEnergyMaxDrain() {
-        return this.energyMaxDrain;
+        return energyMaxDrain;
     }
 
     public double getEnergyProduction() {
-        if(!this.theSkyIsVisible) {
+        if(!theSkyIsVisible) {
             return 0;
         }
 
-        if(!this.theSunIsVisible) {
-            return this.energyNightProduction;
+        if(!theSunIsVisible) {
+            return energyNightProduction;
         }
 
-        return this.energyDayProduction;
+        return energyDayProduction;
     }
 
     public boolean isSkyIsVisible() {
@@ -103,70 +106,82 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
         if (!addedToEnet)
             onLoaded();
 
-        if (!this.initialized && this.worldObj != null) {
-            this.canRain = this.worldObj.getWorldChunkManager().getBiomeGenAt(this.xCoord, this.zCoord).getIntRainfall() > 0;
-            this.noSunlight = this.worldObj.provider.hasNoSky;
-            this.initialized = true;
+        if (!initialized && worldObj != null) {
+            canRain = worldObj.getWorldChunkManager().getBiomeGenAt(xCoord, zCoord).getIntRainfall() > 0;
+            noSunlight = worldObj.provider.hasNoSky;
+            initialized = true;
         }
 
-        if (this.noSunlight)
+        if (noSunlight)
             return;
 
-        if (this.tick-- == 0) {
+        if (tick-- == 0) {
             updateSunState();
-            this.tick = 64;
+            tick = 64;
         }
 
-        this.energyStored += this.getEnergyProduction();
-        this.energyStored = Math.min(this.energyStored, this.energyCapacity);
+        energyStored += getEnergyProduction();
+        energyStored = Math.min(energyStored, energyCapacity);
 
-        for (ItemStack itemStack : this.inventory) {
+        for (ItemStack itemStack : inventory) {
             if(itemStack == null || !(itemStack.getItem() instanceof IElectricItem))
                 continue;
 
             charge(itemStack);
         }
+
+        // worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        worldObj.markAndNotifyBlock(xCoord, yCoord, zCoord, worldObj.getChunkFromBlockCoords(xCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), 2);
+
+        markDirty();
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound NBT = new NBTTagCompound();
+        this.writeToNBT(NBT);
+        S35PacketUpdateTileEntity pack = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, NBT);
+        return pack;
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        this.readFromNBT(pkt.func_148857_g());
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     private void charge(ItemStack item) {
-        double energyToTransfer = Math.min(this.energyStored, this.energyMaxDrain);
-        double energyTransferred = ElectricItem.manager.charge(item, energyToTransfer, this.getSourceTier(), false, false);
-        this.energyStored -= energyTransferred;
+        double energyToTransfer = Math.min(energyStored, energyMaxDrain);
+        double energyTransferred = ElectricItem.manager.charge(item, energyToTransfer, getSourceTier(), false, false);
+        energyStored -= energyTransferred;
     }
 
     public void onLoaded() {
-        if (!this.addedToEnet &&
-                !FMLCommonHandler.instance().getEffectiveSide().isClient() &&
-                Info.isIc2Available()) {
-
-            this.worldObj = this.getWorldObj();
-
-            MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-
-            this.addedToEnet = true;
+        if (addedToEnet || FMLCommonHandler.instance().getEffectiveSide().isClient() || !Info.isIc2Available()) {
+            return;
         }
+
+        worldObj = getWorldObj();
+
+        MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+
+        addedToEnet = true;
     }
 
-
-    public boolean isDaytime(World world) {
+    public static boolean isDaytime(World world) {
         long time = world.getWorldTime() % 24000;
-        
         return time >= 0 && time < 12000;
     }
 
-
     private void updateSunState() {
-        boolean isRaining = this.canRain && (this.worldObj.isRaining() || this.worldObj.isThundering());
+        boolean isRaining = canRain && (worldObj.isRaining() || worldObj.isThundering());
 
-        this.theSkyIsVisible = this.worldObj.canBlockSeeTheSky(this.xCoord, this.yCoord + 1, this.zCoord);
-
-        System.out.println(this.isDaytime(this.getWorldObj()) + " | " + !isRaining + " | " + this.theSkyIsVisible);
-
-        this.theSunIsVisible = this.isDaytime(this.getWorldObj()) && !isRaining && this.theSkyIsVisible;
+        theSkyIsVisible = worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord);
+        theSunIsVisible = isDaytime(getWorldObj()) && !isRaining && theSkyIsVisible;
     }
 
     public ItemStack[] getContents() {
-        return this.inventory;
+        return inventory;
     }
 
     @Override
@@ -205,21 +220,20 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
 
         NBTTagList tagList = new NBTTagList();
 
-        for (int slot = 0; slot < this.inventory.length; slot++) {
-            if (this.inventory[slot] != null) {
+        for (int slot = 0; slot < inventory.length; slot++) {
+            if (inventory[slot] != null) {
                 NBTTagCompound itemCompound = new NBTTagCompound();
 
                 itemCompound.setByte("Slot", (byte) slot);
 
-                this.inventory[slot].writeToNBT(itemCompound);
+                inventory[slot].writeToNBT(itemCompound);
 
                 tagList.appendTag(itemCompound);
             }
         }
 
         compound.setTag("Inventory", tagList);
-
-        // energySource.writeToNBT(compound);
+        compound.setDouble("EnergyStored", energyStored);
     }
 
     @Override
@@ -228,46 +242,46 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
 
         NBTTagList tagList = compound.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
 
-        this.inventory = new ItemStack[getSizeInventory()];
+        inventory = new ItemStack[getSizeInventory()];
 
         for (int itemCount = 0; itemCount < tagList.tagCount(); itemCount++)  {
             NBTTagCompound itemCompound = tagList.getCompoundTagAt(itemCount);
             int slot = itemCompound.getByte("Slot") & 0xff;
 
-            if (slot >= 0 && slot < this.inventory.length) {
-                this.inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
+            if (slot >= 0 && slot < inventory.length) {
+                inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
             }
         }
 
-        // energySource.readFromNBT(compound);
+        energyStored = compound.getDouble("EnergyStored");
     }
 
     @Override
     public int getSizeInventory() {
-        return this.inventory.length;
+        return inventory.length;
     }
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        return this.inventory[index];
+        return inventory[index];
     }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        if(this.inventory[index] == null) {
+        if(inventory[index] == null) {
             return null;
         }
 
-        if(this.inventory[index].stackSize <= count) {
+        if(inventory[index].stackSize <= count) {
             ItemStack itemStack = inventory[index];
             inventory[index] = null;
             return itemStack;
         }
 
-        ItemStack itemStack1 = this.inventory[index].splitStack(count);
+        ItemStack itemStack1 = inventory[index].splitStack(count);
 
-        if (this.inventory[index].stackSize == 0) {
-            this.inventory[index] = null;
+        if (inventory[index].stackSize == 0) {
+            inventory[index] = null;
         }
 
         return itemStack1;
@@ -275,18 +289,18 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
 
     @Override
     public ItemStack getStackInSlotOnClosing(int index) {
-        if (this.inventory[index] == null) {
+        if (inventory[index] == null) {
             return null;
         }
 
-        ItemStack stack = this.inventory[index];
-        this.inventory[index] = null;
+        ItemStack stack = inventory[index];
+        inventory[index] = null;
         return stack;
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        this.inventory[index] = stack;
+        inventory[index] = stack;
 
         if(stack != null && stack.stackSize > getInventoryStackLimit()) {
             stack.stackSize = getInventoryStackLimit();
@@ -334,12 +348,12 @@ public class BasePanelEntity extends TileEntity implements IEnergySource, IWrenc
 
     @Override
     public double getOfferedEnergy() {
-        return Math.min(this.energyStored, this.energyMaxDrain);
+        return Math.min(energyStored, energyMaxDrain);
     }
 
     @Override
     public void drawEnergy(double energyAmount) {
-        this.energyStored -= energyAmount;
+        energyStored -= energyAmount;
     }
 
     @Override

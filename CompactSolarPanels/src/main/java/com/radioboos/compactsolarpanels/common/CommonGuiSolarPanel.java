@@ -6,7 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class CommonGuiSolarPanel extends GuiContainer {
-    public static final ResourceLocation guiTexture = new ResourceLocation("compactsolarpanels", "textures/gui/GUICompactSolarPanels.png");
+    public static final ResourceLocation guiTexture = new ResourceLocation("compactsolarpanels", "textures/gui/GuiCompressedSolarPanels.png");
     private CommonPanelTileEntity entity;
     public static final int GUI_ID = 0;
 
@@ -61,10 +61,10 @@ public class CommonGuiSolarPanel extends GuiContainer {
 
         int inventoryNameTextPadding = (180 - mc.fontRenderer.getStringWidth(inventoryName)) / 2;
 
-        mc.fontRenderer.drawString(inventoryName, xCenter + inventoryNameTextPadding, yCenter + 5, 0x75C6FF);
+        mc.fontRenderer.drawStringWithShadow(inventoryName, xCenter + inventoryNameTextPadding, yCenter + 5, 0x807903);
 
-        mc.fontRenderer.drawString(String.format("Storage: %d/%d", (int) energyStored, (int) energyCapacity), xCenter + 41, yCenter + 20, 0xCDCDCD);
-        mc.fontRenderer.drawString(String.format("Max Output: %d EU/t", (int) maxDrain), xCenter + 41, yCenter + 30, 0xCDCDCD);
-        mc.fontRenderer.drawString(String.format("Generating: %d EU/t", (int) energyGeneration), xCenter + 41, yCenter + 40, 0xCDCDCD);
+        mc.fontRenderer.drawString(String.format("Storage: %d/%d", (int) energyStored, (int) energyCapacity), xCenter + 41, yCenter + 20, 0x373737);
+        mc.fontRenderer.drawString(String.format("Max Output: %d EU/t", (int) maxDrain), xCenter + 41, yCenter + 30, 0x373737);
+        mc.fontRenderer.drawString(String.format("Generating: %d EU/t", (int) energyGeneration), xCenter + 41, yCenter + 40, 0x373737);
     }
 }

@@ -10,6 +10,8 @@ public class BlockRegister extends CommonRegister {
     public static final TripleCompressedSolarPanelBlock TRIPLE_COMPRESSED_SOLAR_PANEL = new TripleCompressedSolarPanelBlock("tripleCompressedSolarPanelBlock");
     public static final QuadrupleCompressedSolarPanelBlock QUADRUPLE_COMPRESSED_SOLAR_PANEL = new QuadrupleCompressedSolarPanelBlock("quadrupleCompressedSolarPanelBlock");
     public static final QuintupleCompressedSolarPanelBlock QUINTUPLE_COMPRESSED_SOLAR_PANEL = new QuintupleCompressedSolarPanelBlock("quintupleCompressedSolarPanelBlock");
+    public static final SextupleCompressedSolarPanelBlock SEXTUPLE_COMPRESSED_SOLAR_PANEL = new SextupleCompressedSolarPanelBlock("sextupleCompressedSolarPanelBlock");
+
 
     public static void register() {
         GameRegistry.registerBlock(COMPRESSED_SOLAR_PANEL, CompressedSolarPanelItem.class, "CompressedSolarPanelBlock");
@@ -17,5 +19,7 @@ public class BlockRegister extends CommonRegister {
         GameRegistry.registerBlock(TRIPLE_COMPRESSED_SOLAR_PANEL, TripleCompressedSolarPanelItem.class, "TripleCompressedSolarPanelBlock");
         GameRegistry.registerBlock(QUADRUPLE_COMPRESSED_SOLAR_PANEL, QuadrupleCompressedSolarPanelItem.class, "QuadrupleCompressedSolarPanelBlock");
         GameRegistry.registerBlock(QUINTUPLE_COMPRESSED_SOLAR_PANEL, QuintupleCompressedSolarPanelItem.class, "QuintupleCompressedSolarPanelBlock");
+        GameRegistry.registerBlock(SEXTUPLE_COMPRESSED_SOLAR_PANEL, SextupleCompressedSolarPanelItem.class, "SextupleCompressedSolarPanelBlock");
+
     }
 }

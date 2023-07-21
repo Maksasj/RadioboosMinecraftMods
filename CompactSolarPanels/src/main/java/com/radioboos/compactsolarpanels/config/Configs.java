@@ -10,6 +10,7 @@ public class Configs {
     public static CommonSolarPanelConfig TRIPLE_COMPRESSED_SOLAR_PANEL_CONFIG = new TripleCompressedSolarPanelConfig("tripleCompressedSolarPanel");
     public static CommonSolarPanelConfig QUADRUPLE_COMPRESSED_SOLAR_PANEL_CONFIG = new QuadrupleCompressedSolarPanelConfig("quadrupleCompressedSolarPanel");
     public static CommonSolarPanelConfig QUINTUPLE_COMPRESSED_SOLAR_PANEL_CONFIG = new QuintupleCompressedSolarPanelConfig("quintupleCompressedSolarPanel");
+    public static CommonSolarPanelConfig SEXTUPLE_COMPRESSED_SOLAR_PANEL_CONFIG = new SextupleCompressedSolarPanelConfig("sextupleCompressedSolarPanel");
 
     public static void loadConfig(FMLPreInitializationEvent event) {
         System.out.println(event.getSuggestedConfigurationFile());
@@ -22,6 +23,7 @@ public class Configs {
             TRIPLE_COMPRESSED_SOLAR_PANEL_CONFIG.loadConfig(cfg);
             QUADRUPLE_COMPRESSED_SOLAR_PANEL_CONFIG.loadConfig(cfg);
             QUINTUPLE_COMPRESSED_SOLAR_PANEL_CONFIG.loadConfig(cfg);
+            SEXTUPLE_COMPRESSED_SOLAR_PANEL_CONFIG.loadConfig(cfg);
         } catch (Exception e) {
             System.out.println("CompactSolarPanels was unable to load it's configuration successfully");
             throw new RuntimeException(e);

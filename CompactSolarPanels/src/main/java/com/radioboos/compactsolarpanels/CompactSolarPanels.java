@@ -1,6 +1,7 @@
 package com.radioboos.compactsolarpanels;
 
 import com.radioboos.compactsolarpanels.common.CommonProxy;
+import com.radioboos.compactsolarpanels.config.Configs;
 import com.radioboos.compactsolarpanels.gui.GuiHandler;
 import cpw.mods.fml.common.SidedProxy;
 
@@ -10,7 +11,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.common.config.Configuration;
 
 @Mod(   modid = CompactSolarPanels.MODID,
         name = "Compact Solar Panels",
@@ -30,6 +30,7 @@ public class CompactSolarPanels {
 
     @EventHandler
     public void preinit(FMLPreInitializationEvent event) {
+        Configs.loadConfig(event);
         proxy.preInit(event);
 
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());

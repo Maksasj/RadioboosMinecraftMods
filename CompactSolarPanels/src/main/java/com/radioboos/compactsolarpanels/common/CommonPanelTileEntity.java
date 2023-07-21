@@ -26,7 +26,10 @@ import static com.radioboos.compactsolarpanels.common.Utils.isDaytime;
 
 public class CommonPanelTileEntity extends TileEntity implements IEnergySource, IWrenchable, IInventory {
     private ItemStack[] inventory;
+
     private boolean initialized;
+    private boolean addedToEnet;
+
     private int tick;
     private boolean canRain;
     private boolean noSunlight;
@@ -40,10 +43,7 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
     private final double energyNightProduction;
     private double energyStored;
 
-
-    private boolean addedToEnet;
-
-    public CommonPanelTileEntity() {
+    public CommonPanelTileEntity(CommonSolarPanelConfig config) {
         super();
 
         inventory = new ItemStack[4];
@@ -52,11 +52,11 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
         theSkyIsVisible = false;
         theSunIsVisible = false;
 
-        energyCapacity = 256000;
+        energyCapacity = config.getCapacity();
         energyStored = 0;
-        energyMaxDrain = 10000;
-        energyDayProduction = 1000;
-        energyNightProduction = 100;
+        energyMaxDrain = config.getMaxDrain();
+        energyDayProduction = config.getDayProduction();
+        energyNightProduction = config.getNightProduction();
 
         addedToEnet = false;
     }

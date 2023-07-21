@@ -6,7 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public class CommonGuiSolarPanel extends GuiContainer {
-    public static final ResourceLocation guiTexture = new ResourceLocation("compactsolarpanels", "textures/gui/GuiCompressedSolarPanels.png");
+    public static final ResourceLocation guiTexture = new ResourceLocation("compactsolarpanels", "textures/gui/GuiCompressedSolarPanel.png");
     private CommonPanelTileEntity entity;
     public static final int GUI_ID = 0;
 

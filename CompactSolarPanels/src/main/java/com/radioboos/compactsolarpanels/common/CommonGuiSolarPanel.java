@@ -57,7 +57,11 @@ public class CommonGuiSolarPanel extends GuiContainer {
             }
         }
 
-        mc.fontRenderer.drawString(entity.getInventoryName(), xCenter + 37, yCenter + 5, 0x75C6FF);
+        String inventoryName = entity.getInventoryName();
+
+        int inventoryNameTextPadding = (180 - mc.fontRenderer.getStringWidth(inventoryName)) / 2;
+
+        mc.fontRenderer.drawString(inventoryName, xCenter + inventoryNameTextPadding, yCenter + 5, 0x75C6FF);
 
         mc.fontRenderer.drawString(String.format("Storage: %d/%d", (int) energyStored, (int) energyCapacity), xCenter + 41, yCenter + 20, 0xCDCDCD);
         mc.fontRenderer.drawString(String.format("Max Output: %d EU/t", (int) maxDrain), xCenter + 41, yCenter + 30, 0xCDCDCD);

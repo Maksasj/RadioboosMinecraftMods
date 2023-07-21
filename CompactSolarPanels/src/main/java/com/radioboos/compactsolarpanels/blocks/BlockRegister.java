@@ -1,17 +1,18 @@
 package com.radioboos.compactsolarpanels.blocks;
 
+import com.radioboos.compactsolarpanels.common.CommonPanelBlock;
 import com.radioboos.compactsolarpanels.common.CommonRegister;
 import com.radioboos.compactsolarpanels.items.*;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockRegister extends CommonRegister {
-    public static final CompressedSolarPanelBlock COMPRESSED_SOLAR_PANEL = new CompressedSolarPanelBlock("compressedSolarPanelBlock");
-    public static final DoubleCompressedSolarPanelBlock DOUBLE_COMPRESSED_SOLAR_PANEL = new DoubleCompressedSolarPanelBlock("doubleCompressedSolarPanelBlock");
-    public static final TripleCompressedSolarPanelBlock TRIPLE_COMPRESSED_SOLAR_PANEL = new TripleCompressedSolarPanelBlock("tripleCompressedSolarPanelBlock");
-    public static final QuadrupleCompressedSolarPanelBlock QUADRUPLE_COMPRESSED_SOLAR_PANEL = new QuadrupleCompressedSolarPanelBlock("quadrupleCompressedSolarPanelBlock");
-    public static final QuintupleCompressedSolarPanelBlock QUINTUPLE_COMPRESSED_SOLAR_PANEL = new QuintupleCompressedSolarPanelBlock("quintupleCompressedSolarPanelBlock");
-    public static final SextupleCompressedSolarPanelBlock SEXTUPLE_COMPRESSED_SOLAR_PANEL = new SextupleCompressedSolarPanelBlock("sextupleCompressedSolarPanelBlock");
-    public static final SeptupleCompressedSolarPanelBlock SEPTUPLE_COMPRESSED_SOLAR_PANEL = new SeptupleCompressedSolarPanelBlock("septupleCompressedSolarPanelBlock");
+    public static final CommonPanelBlock COMPRESSED_SOLAR_PANEL = new CompressedSolarPanelBlock("compressedSolarPanelBlock");
+    public static final CommonPanelBlock DOUBLE_COMPRESSED_SOLAR_PANEL = new DoubleCompressedSolarPanelBlock("doubleCompressedSolarPanelBlock");
+    public static final CommonPanelBlock TRIPLE_COMPRESSED_SOLAR_PANEL = new TripleCompressedSolarPanelBlock("tripleCompressedSolarPanelBlock");
+    public static final CommonPanelBlock QUADRUPLE_COMPRESSED_SOLAR_PANEL = new QuadrupleCompressedSolarPanelBlock("quadrupleCompressedSolarPanelBlock");
+    public static final CommonPanelBlock QUINTUPLE_COMPRESSED_SOLAR_PANEL = new QuintupleCompressedSolarPanelBlock("quintupleCompressedSolarPanelBlock");
+    public static final CommonPanelBlock SEXTUPLE_COMPRESSED_SOLAR_PANEL = new SextupleCompressedSolarPanelBlock("sextupleCompressedSolarPanelBlock");
+    public static final CommonPanelBlock SEPTUPLE_COMPRESSED_SOLAR_PANEL = new SeptupleCompressedSolarPanelBlock("septupleCompressedSolarPanelBlock");
 
 
     public static void register() {

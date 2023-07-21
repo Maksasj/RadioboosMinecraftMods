@@ -15,6 +15,7 @@ public class CommonProxy {
 
         BlockRegister.register();
         TileRegister.register();
+        RecipeRegister.register();
     }
 
     public void init(FMLInitializationEvent event) {
@@ -22,7 +23,7 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent event) {
-        RecipeRegister.register();
+
     }
 
     public void load(FMLLoadEvent event) {

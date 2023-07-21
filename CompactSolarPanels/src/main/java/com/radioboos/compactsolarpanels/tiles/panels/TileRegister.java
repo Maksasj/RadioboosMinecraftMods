@@ -11,6 +11,7 @@ public class TileRegister extends CommonRegister {
     public static final TileEntity QUADRUPLE_COMPRESSED_SOLAR_PANEL_TILE_ENTITY = new QuadrupleCompressedSolarPanelTileEntity();
     public static final TileEntity QUINTUPLE_COMPRESSED_SOLAR_PANEL_TILE_ENTITY = new QuintupleCompressedSolarPanelTileEntity();
     public static final TileEntity SEXTUPLE_COMPRESSED_SOLAR_PANEL_TILE_ENTITY = new SextupleCompressedSolarPanelTileEntity();
+    public static final TileEntity SEPTUPLE_COMPRESSED_SOLAR_PANEL_TILE_ENTITY = new SeptupleCompressedSolarPanelTileEntity();
 
     public static void register() {
         GameRegistry.registerTileEntity(CompressedSolarPanelTileEntity.class, "CompressedSolarPanel");
@@ -19,5 +20,6 @@ public class TileRegister extends CommonRegister {
         GameRegistry.registerTileEntity(QuadrupleCompressedSolarPanelTileEntity.class, "QuadrupleCompressedSolarPanel");
         GameRegistry.registerTileEntity(QuintupleCompressedSolarPanelTileEntity.class, "QuintupleCompressedSolarPanel");
         GameRegistry.registerTileEntity(SextupleCompressedSolarPanelTileEntity.class, "SextupleCompressedSolarPanel");
+        GameRegistry.registerTileEntity(SeptupleCompressedSolarPanelTileEntity.class, "SeptupleCompressedSolarPanel");
     }
 }

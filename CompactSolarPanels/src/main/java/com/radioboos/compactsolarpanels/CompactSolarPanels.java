@@ -10,8 +10,10 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.common.config.Configuration;
 
 @Mod(   modid = CompactSolarPanels.MODID,
+        name = "Compact Solar Panels",
         version = CompactSolarPanels.VERSION,
         dependencies = "required-after:IC2@[2.0,);required-after:Forge@[9.10,)")
 public class CompactSolarPanels {

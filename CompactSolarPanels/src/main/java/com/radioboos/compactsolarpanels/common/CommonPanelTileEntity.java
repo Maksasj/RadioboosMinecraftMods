@@ -1,4 +1,4 @@
-package com.radioboos.compactsolarpanels;
+package com.radioboos.compactsolarpanels.common;
 
 import com.radioboos.compactsolarpanels.common.Utils;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -295,12 +295,12 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
 
     @Override
     public String getInventoryName() {
-        return null;
+        return "Compressed Solar Panel";
     }
 
     @Override
     public boolean hasCustomInventoryName() {
-        return false;
+        return true;
     }
 
     @Override

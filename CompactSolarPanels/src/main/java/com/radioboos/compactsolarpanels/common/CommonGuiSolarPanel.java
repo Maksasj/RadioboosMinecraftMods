@@ -1,17 +1,16 @@
-package com.radioboos.compactsolarpanels.gui;
+package com.radioboos.compactsolarpanels.common;
 
-import com.radioboos.compactsolarpanels.CommonPanelTileEntity;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-public class GuiSolarPanel extends GuiContainer {
+public class CommonGuiSolarPanel extends GuiContainer {
     public static final ResourceLocation guiTexture = new ResourceLocation("compactsolarpanels", "textures/gui/GUICompactSolarPanels.png");
     private CommonPanelTileEntity entity;
     public static final int GUI_ID = 0;
 
-    public GuiSolarPanel(CommonPanelTileEntity entity, Container container) {
+    public CommonGuiSolarPanel(CommonPanelTileEntity entity, Container container) {
         super(container);
 
         this.entity = entity;
@@ -58,7 +57,7 @@ public class GuiSolarPanel extends GuiContainer {
             }
         }
 
-        mc.fontRenderer.drawString("Quantum Solar Panel", xCenter + 37, yCenter + 5, 0x75C6FF);
+        mc.fontRenderer.drawString(entity.getInventoryName(), xCenter + 37, yCenter + 5, 0x75C6FF);
 
         mc.fontRenderer.drawString(String.format("Storage: %d/%d", (int) energyStored, (int) energyCapacity), xCenter + 41, yCenter + 20, 0xCDCDCD);
         mc.fontRenderer.drawString(String.format("Max Output: %d EU/t", (int) maxDrain), xCenter + 41, yCenter + 30, 0xCDCDCD);

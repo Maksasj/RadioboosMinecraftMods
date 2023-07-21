@@ -1,13 +1,12 @@
-package com.radioboos.compactsolarpanels;
+package com.radioboos.compactsolarpanels.common;
 
+import com.radioboos.compactsolarpanels.CompactSolarPanels;
 import com.radioboos.compactsolarpanels.creative.tabs.CreativeTabRegister;
-import com.radioboos.compactsolarpanels.gui.GuiSolarPanel;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,13 +17,22 @@ import net.minecraft.world.World;
 public class CommonPanelBlock extends BlockContainer {
     private CommonPanelTileEntity entity;
 
-    public CommonPanelBlock() {
+    private String blockName;
+
+    public CommonPanelBlock(String name) {
         super(Material.rock);
 
-        setBlockName("mainBlock");
+        this.blockName = name;
+
+        setBlockName(blockName);
+
         setCreativeTab(CreativeTabRegister.COMPACT_SOLAR_PANELS_CREATIVE_TAB);
 
         entity = null;
+    }
+
+    public int getGuiID() {
+        return CommonGuiSolarPanel.GUI_ID;
     }
 
     @Override
@@ -37,7 +45,7 @@ public class CommonPanelBlock extends BlockContainer {
             return true;
         }
 
-        player.openGui(CompactSolarPanels.instance, GuiSolarPanel.GUI_ID, world, x, y, z);
+        player.openGui(CompactSolarPanels.instance, this.getGuiID(), world, x, y, z);
 
         return true;
     }
@@ -73,9 +81,9 @@ public class CommonPanelBlock extends BlockContainer {
     public void registerBlockIcons(IIconRegister iconRegister) {
         textures = new IIcon[3];
 
-        textures[0] = iconRegister.registerIcon("compactsolarpanels:solartop");
-        textures[1] = iconRegister.registerIcon("compactsolarpanels:side");
-        textures[2] = iconRegister.registerIcon("compactsolarpanels:bottom");
+        textures[0] = iconRegister.registerIcon("compactsolarpanels:" + blockName + "/solar_top");
+        textures[1] = iconRegister.registerIcon("compactsolarpanels:" + blockName + "/solar_side");
+        textures[2] = iconRegister.registerIcon("compactsolarpanels:" + blockName + "/solar_bottom");
     }
 
     @Override
@@ -89,9 +97,13 @@ public class CommonPanelBlock extends BlockContainer {
         return textures[1];
     }
 
+    public CommonPanelTileEntity getTileEntity() {
+        return null;
+    }
+
     @Override
     public TileEntity createNewTileEntity(World world, int metadata) {
-        entity = new CommonPanelTileEntity();
+        entity = this.getTileEntity();
         return entity;
     }
 }

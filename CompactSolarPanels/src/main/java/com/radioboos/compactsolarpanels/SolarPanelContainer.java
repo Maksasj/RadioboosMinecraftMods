@@ -1,5 +1,6 @@
 package com.radioboos.compactsolarpanels;
 
+import com.radioboos.compactsolarpanels.common.CommonPanelTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;

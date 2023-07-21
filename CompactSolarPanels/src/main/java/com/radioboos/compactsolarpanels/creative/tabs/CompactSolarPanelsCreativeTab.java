@@ -6,11 +6,11 @@ import net.minecraft.item.Item;
 
 public class CompactSolarPanelsCreativeTab extends CommonCreativeTab {
     public CompactSolarPanelsCreativeTab() {
-        super("compactSolarPanels");
+        super("compactSolarPanelsCreativeTab");
     }
 
     @Override
     public Item getTabIconItem() {
-        return Item.getItemFromBlock(BlockRegister.SOLAR_PANEL);
+        return Item.getItemFromBlock(BlockRegister.COMPRESSED_SOLAR_PANEL);
     }
 }

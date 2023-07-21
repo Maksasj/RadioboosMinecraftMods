@@ -1,6 +1,7 @@
 package com.radioboos.compactsolarpanels.gui;
 
-import com.radioboos.compactsolarpanels.CommonPanelTileEntity;
+import com.radioboos.compactsolarpanels.common.CommonGuiSolarPanel;
+import com.radioboos.compactsolarpanels.common.CommonPanelTileEntity;
 import com.radioboos.compactsolarpanels.SolarPanelContainer;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +27,7 @@ public class GuiHandler implements IGuiHandler {
 
         if (entity != null && entity instanceof CommonPanelTileEntity) {
             CommonPanelTileEntity tile = (CommonPanelTileEntity) entity;
-            return new GuiSolarPanel(tile, new SolarPanelContainer(player.inventory, tile));
+            return new CommonGuiSolarPanel(tile, new SolarPanelContainer(player.inventory, tile));
         }
 
         return null;

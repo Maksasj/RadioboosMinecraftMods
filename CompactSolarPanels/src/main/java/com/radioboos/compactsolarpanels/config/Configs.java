@@ -7,6 +7,7 @@ import net.minecraftforge.common.config.Configuration;
 public class Configs {
     public static CommonSolarPanelConfig COMPRESSED_SOLAR_PANEL_CONFIG = new CompressedSolarPanelConfig("compressedSolarPanel");
     public static CommonSolarPanelConfig DOUBLE_COMPRESSED_SOLAR_PANEL_CONFIG = new DoubleCompressedSolarPanelConfig("doubleCompressedSolarPanel");
+    public static CommonSolarPanelConfig TRIPLE_COMPRESSED_SOLAR_PANEL_CONFIG = new TripleCompressedSolarPanelConfig("tripleCompressedSolarPanel");
 
     public static void loadConfig(FMLPreInitializationEvent event) {
         System.out.println(event.getSuggestedConfigurationFile());

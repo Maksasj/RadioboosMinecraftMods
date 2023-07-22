@@ -8,6 +8,10 @@ Compact solar panels - Mod which add a bunch of new solar panels, that generates
 
 Highly inspired by compressed solar panels from [Electro-Magic Tools](https://www.curseforge.com/minecraft/mc-mods/electro-magic-tools) Industrial craft addon.
 
+## Requirements
+1. Minecraft 1.7.10
+2. Forge 9.10.+
+3. Industrial Craft 2 Experimental 2.0.+
 
 ## Features
 - Compressed solar panel

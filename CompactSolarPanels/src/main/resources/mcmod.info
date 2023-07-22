@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "compactsolarpanels",
+  "name": "Compact Solar Panels",
+  "description": "mod which add a bunch of new solar panels.",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["Radioboos"],
+  "credits": "Poggers !",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []

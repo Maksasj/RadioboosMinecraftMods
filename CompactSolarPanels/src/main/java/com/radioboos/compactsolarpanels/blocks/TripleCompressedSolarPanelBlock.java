@@ -3,7 +3,6 @@ package com.radioboos.compactsolarpanels.blocks;
 import com.radioboos.compactsolarpanels.common.CommonGuiSolarPanel;
 import com.radioboos.compactsolarpanels.common.CommonPanelBlock;
 import com.radioboos.compactsolarpanels.common.CommonPanelTileEntity;
-import com.radioboos.compactsolarpanels.tiles.panels.DoubleCompressedSolarPanelTileEntity;
 import com.radioboos.compactsolarpanels.tiles.panels.TripleCompressedSolarPanelTileEntity;
 
 public class TripleCompressedSolarPanelBlock extends CommonPanelBlock {

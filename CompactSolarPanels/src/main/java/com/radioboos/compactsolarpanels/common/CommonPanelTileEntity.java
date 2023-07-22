@@ -1,6 +1,5 @@
 package com.radioboos.compactsolarpanels.common;
 
-import com.radioboos.compactsolarpanels.common.Utils;
 import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.energy.event.EnergyTileLoadEvent;
 import ic2.api.energy.tile.IEnergySource;
@@ -21,8 +20,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import static com.radioboos.compactsolarpanels.common.Utils.isDaytime;
 
 public class CommonPanelTileEntity extends TileEntity implements IEnergySource, IWrenchable, IInventory {
     private ItemStack[] inventory;
@@ -143,7 +140,7 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
         boolean isRaining = canRain && (worldObj.isRaining() || worldObj.isThundering());
 
         theSkyIsVisible = worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord);
-        theSunIsVisible = isDaytime(getWorldObj()) && !isRaining && theSkyIsVisible;
+        theSunIsVisible = Utils.isDaytime(getWorldObj()) && !isRaining && theSkyIsVisible;
     }
 
     public double getEnergyStored() {

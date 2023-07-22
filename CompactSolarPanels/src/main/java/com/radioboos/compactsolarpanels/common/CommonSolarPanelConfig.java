@@ -33,6 +33,7 @@ public class CommonSolarPanelConfig {
     public double getMaxDrain() {
         return maxDrain;
     }
+
     public double getDayProduction() {
         return dayProduction;
     }

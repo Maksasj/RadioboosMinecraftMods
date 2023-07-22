@@ -4,7 +4,6 @@ import com.radioboos.compactsolarpanels.common.CommonGuiSolarPanel;
 import com.radioboos.compactsolarpanels.common.CommonPanelBlock;
 import com.radioboos.compactsolarpanels.common.CommonPanelTileEntity;
 import com.radioboos.compactsolarpanels.tiles.panels.SeptupleCompressedSolarPanelTileEntity;
-import com.radioboos.compactsolarpanels.tiles.panels.SextupleCompressedSolarPanelTileEntity;
 
 public class SeptupleCompressedSolarPanelBlock extends CommonPanelBlock {
     public SeptupleCompressedSolarPanelBlock(String name) {

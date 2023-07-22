@@ -2,7 +2,6 @@ package com.radioboos.compactsolarpanels.items;
 
 import com.radioboos.compactsolarpanels.common.CommonPanelItemBlock;
 import com.radioboos.compactsolarpanels.config.Configs;
-import com.radioboos.compactsolarpanels.config.QuadrupleCompressedSolarPanelConfig;
 import net.minecraft.block.Block;
 
 public class QuadrupleCompressedSolarPanelItem extends CommonPanelItemBlock {

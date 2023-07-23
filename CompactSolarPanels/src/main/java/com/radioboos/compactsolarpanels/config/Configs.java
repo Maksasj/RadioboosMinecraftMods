@@ -14,7 +14,6 @@ public class Configs {
     public static CommonSolarPanelConfig SEPTUPLE_COMPRESSED_SOLAR_PANEL_CONFIG = new SeptupleCompressedSolarPanelConfig("septupleCompressedSolarPanel");
 
     public static void loadConfig(FMLPreInitializationEvent event) {
-        System.out.println(event.getSuggestedConfigurationFile());
         Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
         try {
             cfg.load();

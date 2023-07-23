@@ -35,6 +35,7 @@ repositories {
 
 dependencies {
     compile 'net.industrial-craft:industrialcraft-2:2.2.828-experimental:api'
+    compile 'net.sengir.forestry:forestry_1.7.10:4.2.16.64:api'
 }
 
 processResources

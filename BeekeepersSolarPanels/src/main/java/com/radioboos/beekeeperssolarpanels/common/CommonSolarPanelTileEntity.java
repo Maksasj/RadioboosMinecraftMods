@@ -1,4 +1,4 @@
-package com.radioboos.compactsolarpanels.common;
+package com.radioboos.beekeeperssolarpanels.common;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import ic2.api.energy.event.EnergyTileLoadEvent;
@@ -7,7 +7,6 @@ import ic2.api.info.Info;
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.tile.IWrenchable;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -21,7 +20,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class CommonPanelTileEntity extends TileEntity implements IEnergySource, IWrenchable, IInventory {
+public class CommonSolarPanelTileEntity extends TileEntity implements IEnergySource, IWrenchable, IInventory {
     private ItemStack[] inventory;
 
     private boolean initialized;
@@ -40,7 +39,7 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
     private final double energyNightProduction;
     private double energyStored;
 
-    public CommonPanelTileEntity(CommonSolarPanelConfig config) {
+    public CommonSolarPanelTileEntity(CommonSolarPanelConfig config) {
         super();
 
         inventory = new ItemStack[4];
@@ -59,11 +58,11 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
     }
 
     public double getEnergyProduction() {
-        if(!theSkyIsVisible) {
+        if (!theSkyIsVisible) {
             return 0;
         }
 
-        if(!theSunIsVisible) {
+        if (!theSunIsVisible) {
             return energyNightProduction;
         }
 
@@ -93,13 +92,13 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
         energyStored = Math.min(energyStored, energyCapacity);
 
         for (ItemStack itemStack : inventory) {
-            if(itemStack == null || !(itemStack.getItem() instanceof IElectricItem))
+            if (itemStack == null || !(itemStack.getItem() instanceof IElectricItem))
                 continue;
 
             charge(itemStack);
         }
 
-        worldObj.markAndNotifyBlock(xCoord, yCoord, zCoord, worldObj.getChunkFromBlockCoords(xCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), 2);
+        worldObj.markAndNotifyBlock(xCoord, yCoord, zCoord, worldObj.getChunkFromBlockCoords(xCoord, zCoord), worldObj.getBlock(xCoord, yCoord, zCoord), worldObj.getBlock(xCoord, yCoord, zCoord), 2);
 
         markDirty();
     }
@@ -227,7 +226,7 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
 
         inventory = new ItemStack[getSizeInventory()];
 
-        for (int itemCount = 0; itemCount < tagList.tagCount(); itemCount++)  {
+        for (int itemCount = 0; itemCount < tagList.tagCount(); itemCount++) {
             NBTTagCompound itemCompound = tagList.getCompoundTagAt(itemCount);
             int slot = itemCompound.getByte("Slot") & 0xff;
 
@@ -251,11 +250,11 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        if(inventory[index] == null) {
+        if (inventory[index] == null) {
             return null;
         }
 
-        if(inventory[index].stackSize <= count) {
+        if (inventory[index].stackSize <= count) {
             ItemStack itemStack = inventory[index];
             inventory[index] = null;
             return itemStack;
@@ -285,7 +284,7 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
     public void setInventorySlotContents(int index, ItemStack stack) {
         inventory[index] = stack;
 
-        if(stack != null && stack.stackSize > getInventoryStackLimit()) {
+        if (stack != null && stack.stackSize > getInventoryStackLimit()) {
             stack.stackSize = getInventoryStackLimit();
         }
     }
@@ -322,7 +321,7 @@ public class CommonPanelTileEntity extends TileEntity implements IEnergySource, 
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        if(stack == null || !(stack.getItem() instanceof IElectricItem)) {
+        if (stack == null || !(stack.getItem() instanceof IElectricItem)) {
             return false;
         }
 

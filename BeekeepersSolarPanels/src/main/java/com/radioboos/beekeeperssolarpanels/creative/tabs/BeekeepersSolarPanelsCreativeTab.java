@@ -11,6 +11,6 @@ public class BeekeepersSolarPanelsCreativeTab extends CommonCreativeTab {
 
     @Override
     public Item getTabIconItem() {
-        return null;
+        return Item.getItemFromBlock(BlockRegister.RIPE_BEEKEEPERS_SOLAR_PANEL);
     }
 }

@@ -83,9 +83,9 @@ public class CommonSolarPanelBlock extends BlockContainer {
     public void registerBlockIcons(IIconRegister iconRegister) {
         textures = new IIcon[3];
 
-        textures[0] = iconRegister.registerIcon("compactsolarpanels:" + blockName + "/solar_top");
-        textures[1] = iconRegister.registerIcon("compactsolarpanels:" + blockName + "/solar_side");
-        textures[2] = iconRegister.registerIcon("compactsolarpanels:" + blockName + "/solar_bottom");
+        textures[0] = iconRegister.registerIcon("beekeeperssolarpanels:" + blockName + "/solar_top");
+        textures[1] = iconRegister.registerIcon("beekeeperssolarpanels:" + blockName + "/solar_side");
+        textures[2] = iconRegister.registerIcon("beekeeperssolarpanels:" + blockName + "/solar_bottom");
     }
 
     @Override

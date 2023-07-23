@@ -2,6 +2,8 @@ package com.radioboos.beekeeperssolarpanels.common;
 
 import com.radioboos.beekeeperssolarpanels.blocks.BlockRegister;
 import com.radioboos.beekeeperssolarpanels.creative.tabs.CreativeTabRegister;
+import com.radioboos.beekeeperssolarpanels.items.ItemRegister;
+import com.radioboos.beekeeperssolarpanels.recipes.RecipeRegister;
 import com.radioboos.beekeeperssolarpanels.tiles.panels.TileRegister;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadEvent;
@@ -13,7 +15,9 @@ public class CommonProxy {
         CreativeTabRegister.register();
 
         BlockRegister.register();
+        ItemRegister.register();
         TileRegister.register();
+        RecipeRegister.register();
     }
 
     public void init(FMLInitializationEvent event) {

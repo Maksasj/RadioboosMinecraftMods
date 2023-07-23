@@ -2,7 +2,7 @@ package com.radioboos.beekeeperssolarpanels.blocks;
 
 import com.radioboos.beekeeperssolarpanels.common.CommonRegister;
 import com.radioboos.beekeeperssolarpanels.common.CommonSolarPanelBlock;
-import com.radioboos.beekeeperssolarpanels.items.RipeBeekeepersSolarPanelItem;
+import com.radioboos.beekeeperssolarpanels.items.panels.RipeBeekeepersSolarPanelItem;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockRegister extends CommonRegister {

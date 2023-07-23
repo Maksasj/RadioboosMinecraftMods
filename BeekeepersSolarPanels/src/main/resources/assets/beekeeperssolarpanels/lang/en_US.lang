@@ -1,3 +1,8 @@
 itemGroup.beekeepersSolarPanelsCreativeTab=Beekeepers Solar Panels
 
+item.crystallizedRipeCore.name=Crystallized Ripe Core
+item.crystallizedRipeShard.name=Crystallized Ripe Shard
+item.irradiantIridium.name=Irradiant Iridium
+item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy
+
 tile.ripeBeekeepersSolarPanelBlock.name=Ripe Beekeepers Solar Panel

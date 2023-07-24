@@ -9,6 +9,13 @@ item.crystallizedDiamondShard.name=Crystallized Diamond Shard
 item.crystallizedPlatinumShard.name=Crystallized Platinum Shard
 
 item.crystallizedRipeCore.name=Crystallized Ripe Core
+item.crystallizedShadowCore.name=Crystallized Shadow Core
+item.crystallizedSulfuricCore.name=Crystallized Sulfuric Core
+item.crystallizedShimmeringCore.name=Crystallized Shimmering Core
+item.crystallizedUranicCore.name=Crystallized Uranic Core
+item.crystallizedDiamondCore.name=Crystallized Diamond Core
+item.crystallizedPlatinumCore.name=Crystallized Platinum Core
+
 item.irradiantIridium.name=Irradiant Iridium
 item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy
 item.denseEnrichedIrradiantIridiumAlloy.name=Dense Enriched Irradiant Iridium Alloy

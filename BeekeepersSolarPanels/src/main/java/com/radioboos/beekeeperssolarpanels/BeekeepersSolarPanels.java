@@ -4,12 +4,15 @@ import com.radioboos.api.binnie.extrabees.ExtraBeesApi;
 import com.radioboos.api.binnie.extrabees.ExtraBeesCombApi;
 import com.radioboos.api.ic2.IC2Api;
 import com.radioboos.beekeeperssolarpanels.common.CommonProxy;
+import com.radioboos.beekeeperssolarpanels.configs.Configs;
+import com.radioboos.beekeeperssolarpanels.gui.GuiHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLLoadEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import net.minecraft.block.Block;
@@ -40,7 +43,10 @@ public class BeekeepersSolarPanels {
 
     @EventHandler
     public void preinit(FMLPreInitializationEvent event) {
+        Configs.loadConfig(event);
         proxy.preInit(event);
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 
     @EventHandler

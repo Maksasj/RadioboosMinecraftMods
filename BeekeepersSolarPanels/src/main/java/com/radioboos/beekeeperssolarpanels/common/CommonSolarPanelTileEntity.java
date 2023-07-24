@@ -291,7 +291,7 @@ public class CommonSolarPanelTileEntity extends TileEntity implements IEnergySou
 
     @Override
     public String getInventoryName() {
-        return "Compressed Solar Panel";
+        return "Beekeepers Solar Panel";
     }
 
     @Override

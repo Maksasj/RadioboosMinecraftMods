@@ -31,11 +31,9 @@ public class CommonSolarPanelBlock extends BlockContainer {
         entity = null;
     }
 
-    /*
     public int getGuiID() {
         return CommonGuiSolarPanel.GUI_ID;
     }
-    */
 
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9){
@@ -47,7 +45,7 @@ public class CommonSolarPanelBlock extends BlockContainer {
             return true;
         }
 
-        // player.openGui(BeekeepersSolarPanels.instance, this.getGuiID(), world, x, y, z);
+        player.openGui(BeekeepersSolarPanels.instance, this.getGuiID(), world, x, y, z);
 
         return true;
     }

@@ -1,7 +1,14 @@
 itemGroup.beekeepersSolarPanelsCreativeTab=Beekeepers Solar Panels
 
-item.crystallizedRipeCore.name=Crystallized Ripe Core
 item.crystallizedRipeShard.name=Crystallized Ripe Shard
+item.crystallizedShadowShard.name=Crystallized Shadow Shard
+item.crystallizedSulfuricShard.name=Crystallized Sulfuric Shard
+item.crystallizedShimmeringShard.name=Crystallized Shimmering Shard
+item.crystallizedUranicShard.name=Crystallized Uranic Shard
+item.crystallizedDiamondShard.name=Crystallized Diamond Shard
+item.crystallizedPlatinumShard.name=Crystallized Platinum Shard
+
+item.crystallizedRipeCore.name=Crystallized Ripe Core
 item.irradiantIridium.name=Irradiant Iridium
 item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy
 item.denseEnrichedIrradiantIridiumAlloy.name=Dense Enriched Irradiant Iridium Alloy

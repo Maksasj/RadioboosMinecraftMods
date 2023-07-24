@@ -25,9 +25,11 @@ public class ExtraBeesCombApi {
     public static ItemStack GLACIAL_COMB = findItem(31);
     public static ItemStack SHADOW_COMB = findItem(32);
     public static ItemStack LEADEN_COMB = findItem(33);
+    public static ItemStack PLATINUM_COMB = findItem(37);
     public static ItemStack EMERALD_COMB = findItem(39);
     public static ItemStack DIAMOND_COMB = findItem(42);
     public static ItemStack DECOMPOSED_COMB = findItem(62);
+    public static ItemStack SHIMMERING_COMB = findItem(65);
 
     private static ItemStack findItem(int meta) {
         Item item = GameRegistry.findItem("ExtraBees", "honeyComb");

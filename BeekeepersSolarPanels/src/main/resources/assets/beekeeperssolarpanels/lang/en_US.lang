@@ -16,10 +16,21 @@ item.crystallizedUranicCore.name=Crystallized Uranic Core
 item.crystallizedDiamondCore.name=Crystallized Diamond Core
 item.crystallizedPlatinumCore.name=Crystallized Platinum Core
 
+item.reinforcedWovenSilk.name=Reinforced Woven Silk
+item.compositeWovenSilk.name=Composite Woven Silk
+item.silkLump.name=Silk Lump
+item.silkCube.name=Silk Cube
+item.compressedSilkCube.name=Compressed Silk Cube
+
+item.absorbingMatrixFrame.name=Absorbing Matrix Frame
+item.absorbingMatrixShadow.name=Absorbing Matrix Shadow
+
+item.crystallizedScentedRipeGear.name=Crystallized Scented Ripe Gear
+item.crystallizedScentedShadowGear.name=Crystallized Scented Shadow Gear
+
 item.irradiantIridium.name=Irradiant Iridium
 item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy
 item.denseEnrichedIrradiantIridiumAlloy.name=Dense Enriched Irradiant Iridium Alloy
-item.crystallizedScentedRipeGear.name=Crystallized Scented Ripe Gear
 
 tile.ripeBeekeepersSolarPanelBlock.name=Ripe Beekeepers Solar Panel
 

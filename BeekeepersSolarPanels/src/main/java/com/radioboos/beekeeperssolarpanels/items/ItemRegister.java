@@ -3,7 +3,13 @@ package com.radioboos.beekeeperssolarpanels.items;
 import com.radioboos.beekeeperssolarpanels.common.CommonRegister;
 import com.radioboos.beekeeperssolarpanels.items.misc.*;
 import com.radioboos.beekeeperssolarpanels.items.misc.cores.*;
+import com.radioboos.beekeeperssolarpanels.items.misc.gears.CrystallizedScentedRipeGear;
+import com.radioboos.beekeeperssolarpanels.items.misc.gears.CrystallizedScentedShadowGear;
 import com.radioboos.beekeeperssolarpanels.items.misc.shards.CrystallizedRipeShard;
+import com.radioboos.beekeeperssolarpanels.items.misc.silk.CompositeWovenSilk;
+import com.radioboos.beekeeperssolarpanels.items.misc.silk.CompressedSilkCube;
+import com.radioboos.beekeeperssolarpanels.items.misc.silk.SilkCube;
+import com.radioboos.beekeeperssolarpanels.items.misc.silk.SilkLump;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 
@@ -22,10 +28,18 @@ public class ItemRegister extends CommonRegister {
     public static Item CRYSTALLIZED_URANIC_CORE_ITEM = new CrystallizedUranicCore("crystallizedUranicCore");
     public static Item CRYSTALLIZED_DIAMOND_CORE_ITEM = new CrystallizedDiamondCore("crystallizedDiamondCore");
     public static Item CRYSTALLIZED_PLATINUM_CORE_ITEM = new CrystallizedPlatinumCore("crystallizedPlatinumCore");
+    public static Item REINFORCED_WOVEN_SILK = new IrradiantIridium("reinforcedWovenSilk");
+    public static Item COMPOSITE_WOVEN_SILK = new CompositeWovenSilk("compositeWovenSilk");
+    public static Item SILK_LUMP = new SilkLump("silkLump");
+    public static Item SILK_CUBE = new SilkCube("silkCube");
+    public static Item COMPRESSED_SILK_CUBE = new CompressedSilkCube("compressedSilkCube");
+    public static Item ABSORBING_MATRIX_FRAME = new SilkCube("absorbingMatrixFrame");
+    public static Item ABSORBING_MATRIX_SHADOW = new SilkCube("absorbingMatrixShadow");
+    public static Item CRYSTALLIZED_SCENTED_RIPE_GEAR = new CrystallizedScentedRipeGear("crystallizedScentedRipeGear");
+    public static Item CRYSTALLIZED_SCENTED_SHADOW_GEAR = new CrystallizedScentedShadowGear("crystallizedScentedShadowGear");
     public static Item IRRADIANT_IRIDIUM_ITEM = new IrradiantIridium("irradiantIridium");
     public static Item ENRICHED_IRRADIANT_IRIDIUM_ALLOY = new EnrichedIrradiantIridiumAlloy("enrichedIrradiantIridiumAlloy");
     public static Item DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY = new DenseEnrichedIrradiantIridiumAlloy("denseEnrichedIrradiantIridiumAlloy");
-    public static Item CRYSTALLIZED_SCENTED_RIPE_GEAR = new CrystallizedScentedRipeGear("crystallizedScentedRipeGear");
 
     public static void register() {
         GameRegistry.registerItem(CRYSTALLIZED_RIPE_SHARD_ITEM, "crystallizedRipeShard");
@@ -44,9 +58,20 @@ public class ItemRegister extends CommonRegister {
         GameRegistry.registerItem(CRYSTALLIZED_DIAMOND_CORE_ITEM, "crystallizedDiamondCore");
         GameRegistry.registerItem(CRYSTALLIZED_PLATINUM_CORE_ITEM, "crystallizedPlatinumCore");
 
+        GameRegistry.registerItem(REINFORCED_WOVEN_SILK, "reinforcedWovenSilk");
+        GameRegistry.registerItem(COMPOSITE_WOVEN_SILK, "compositeWovenSilk");
+        GameRegistry.registerItem(SILK_LUMP, "silkLump");
+        GameRegistry.registerItem(SILK_CUBE, "silkCube");
+        GameRegistry.registerItem(COMPRESSED_SILK_CUBE, "compressedSilkCube");
+
+        GameRegistry.registerItem(ABSORBING_MATRIX_FRAME, "absorbingMatrixFrame");
+        GameRegistry.registerItem(ABSORBING_MATRIX_SHADOW, "absorbingMatrixShadow");
+
+        GameRegistry.registerItem(CRYSTALLIZED_SCENTED_RIPE_GEAR, "crystallizedScentedRipeGear");
+        GameRegistry.registerItem(CRYSTALLIZED_SCENTED_SHADOW_GEAR, "crystallizedScentedShadowGear");
+
         GameRegistry.registerItem(IRRADIANT_IRIDIUM_ITEM, "irradiantIridium");
         GameRegistry.registerItem(ENRICHED_IRRADIANT_IRIDIUM_ALLOY, "enrichedIrradiantIridiumAlloy");
         GameRegistry.registerItem(DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY, "denseEnrichedIrradiantIridiumAlloy");
-        GameRegistry.registerItem(CRYSTALLIZED_SCENTED_RIPE_GEAR, "crystallizedScentedRipeGear");
     }
 }

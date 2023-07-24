@@ -8,3 +8,11 @@ item.denseEnrichedIrradiantIridiumAlloy.name=Dense Enriched Irradiant Iridium Al
 item.crystallizedScentedRipeGear.name=Crystallized Scented Ripe Gear
 
 tile.ripeBeekeepersSolarPanelBlock.name=Ripe Beekeepers Solar Panel
+
+tile.ripeBeekeepersSolarPanelBlock.name=Ripe Beekeepers Solar Panel
+tile.shadowBeekeepersSolarPanelBlock.name=Shadow Beekeepers Solar Panel
+tile.sulfuricBeekeepersSolarPanelBlock.name=Sulfuric Beekeepers Solar Panel
+tile.shimmeringBeekeepersSolarPanelBlock.name=Shimmering Beekeepers Solar Panel
+tile.uranicBeekeepersSolarPanelBlock.name=Uranic Beekeepers Solar Panel
+tile.diamondBeekeepersSolarPanelBlock.name=Diamond Beekeepers Solar Panel
+tile.platinicBeekeepersSolarPanelBlock.name=Platinum Beekeepers Solar Panel

@@ -25,7 +25,8 @@ public class RecipeRegister extends CommonRegister {
         ItemStack glowstonePowder = new ItemStack(Items.glowstone_dust);
 
         // Compressor
-        Recipes.compressor.addRecipe(new RecipeInputItemStack(ForestryCombApi.MELLOW_COMB, 9), null, new ItemStack(ItemRegister.CRYSTALLIZED_RIPE_SHARD_ITEM, 1));
+        Recipes.compressor.addRecipe(new RecipeInputItemStack(ForestryCombApi.MELLOW_COMB, 64), null, new ItemStack(ItemRegister.CRYSTALLIZED_RIPE_SHARD_ITEM, 1));
+
         Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.ENRICHED_IRRADIANT_IRIDIUM_ALLOY), 9), null, new ItemStack(ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY, 1));
 
         GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_RIPE_CORE_ITEM, 1),

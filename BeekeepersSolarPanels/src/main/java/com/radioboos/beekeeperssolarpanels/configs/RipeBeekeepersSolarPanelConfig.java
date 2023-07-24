@@ -6,9 +6,9 @@ public class RipeBeekeepersSolarPanelConfig extends CommonSolarPanelConfig {
     public RipeBeekeepersSolarPanelConfig(String configLabel) {
         super(configLabel);
 
-        this.capacity = 100000;
-        this.maxDrain = 1000;
-        this.dayProduction = 100;
-        this.nightProduction = 10;
+        this.capacity = 1000000;
+        this.maxDrain = 16000;
+        this.dayProduction = 8000;
+        this.nightProduction = 4000;
     }
 }

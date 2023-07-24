@@ -4,5 +4,7 @@ item.crystallizedRipeCore.name=Crystallized Ripe Core
 item.crystallizedRipeShard.name=Crystallized Ripe Shard
 item.irradiantIridium.name=Irradiant Iridium
 item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy
+item.denseEnrichedIrradiantIridiumAlloy.name=Dense Enriched Irradiant Iridium Alloy
+item.crystallizedScentedRipeGear.name=Crystallized Scented Ripe Gear
 
 tile.ripeBeekeepersSolarPanelBlock.name=Ripe Beekeepers Solar Panel

@@ -36,6 +36,9 @@ item.computationArrayCircuit.name=Computation Array Circuit
 item.shadowInfusedMachineCasing.name=Shadow Infused Machine Casing
 item.sulfuricInfusedMachineCasing.name=Sulfuric Infused Machine Casing
 
+item.concentratedSulfuricShardExtract.name=Concentrated Sulfuric Shard Extract
+item.crushedSulfuricShard.name=Crushed Sulfuric Shard
+
 item.sulfuricCrystal.name=Sulfuric Crystal
 
 item.irradiantIridium.name=Irradiant Iridium

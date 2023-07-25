@@ -8,6 +8,8 @@ import com.radioboos.beekeeperssolarpanels.items.misc.circuits.ComputationArrayC
 import com.radioboos.beekeeperssolarpanels.items.misc.circuits.QuantumCircuit;
 import com.radioboos.beekeeperssolarpanels.items.misc.cores.*;
 import com.radioboos.beekeeperssolarpanels.items.misc.crystals.SulfuricCrystal;
+import com.radioboos.beekeeperssolarpanels.items.misc.dust.ConcentratedSulfuricShardExtract;
+import com.radioboos.beekeeperssolarpanels.items.misc.dust.CrushedSulfuricShard;
 import com.radioboos.beekeeperssolarpanels.items.misc.gears.CrystallizedScentedRipeGear;
 import com.radioboos.beekeeperssolarpanels.items.misc.gears.CrystallizedScentedShadowGear;
 import com.radioboos.beekeeperssolarpanels.items.misc.gears.CrystallizedScentedSulfuricGear;
@@ -53,6 +55,8 @@ public class ItemRegister extends CommonRegister {
     public static Item SHADOW_INFUSED_MACHINE_CASING = new ShadowInfusedMachineCasing("shadowInfusedMachineCasing");
     public static Item SULFURIC_INFUSED_MACHINE_CASING = new SulfuricInfusedMachineCasing("sulfuricInfusedMachineCasing");
     public static Item SULFURIC_CRYSTAL = new SulfuricCrystal("sulfuricCrystal");
+    public static Item CONCENTRATED_SULFURIC_SHARD_EXTRACT = new ConcentratedSulfuricShardExtract("concentratedSulfuricShardExtract");
+    public static Item CRUSHED_SULFURIC_SHARD = new CrushedSulfuricShard("crushedSulfuricShard");
     public static Item IRRADIANT_IRIDIUM_ITEM = new IrradiantIridium("irradiantIridium");
     public static Item ENRICHED_IRRADIANT_IRIDIUM_ALLOY = new EnrichedIrradiantIridiumAlloy("enrichedIrradiantIridiumAlloy");
     public static Item DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY = new DenseEnrichedIrradiantIridiumAlloy("denseEnrichedIrradiantIridiumAlloy");
@@ -93,6 +97,9 @@ public class ItemRegister extends CommonRegister {
 
         GameRegistry.registerItem(SHADOW_INFUSED_MACHINE_CASING, "shadowInfusedMachineCasing");
         GameRegistry.registerItem(SULFURIC_INFUSED_MACHINE_CASING, "sulfuricInfusedMachineCasing");
+
+        GameRegistry.registerItem(CONCENTRATED_SULFURIC_SHARD_EXTRACT, "concentratedSulfuricShardExtract");
+        GameRegistry.registerItem(CRUSHED_SULFURIC_SHARD, "crushedSulfuricShard");
 
         GameRegistry.registerItem(SULFURIC_CRYSTAL, "sulfuricCrystal");
 

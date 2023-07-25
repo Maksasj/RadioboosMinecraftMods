@@ -30,14 +30,84 @@ public class RecipeRegister extends CommonRegister {
         ItemStack carbonMesh = IC2Items.getItem("carbonMesh");
         ItemStack insulatedGoldCable = IC2Items.getItem("insulatedGoldCableItem");
         ItemStack advancedCircuit = IC2Items.getItem("advancedCircuit");
+        ItemStack diamondDust = IC2Items.getItem("diamondDust");
         ItemStack glowstonePowder = new ItemStack(Items.glowstone_dust);
         ItemStack string = new ItemStack(Items.string);
 
         ItemStack ripeSolarPanel = new ItemStack(BlockRegister.RIPE_BEEKEEPERS_SOLAR_PANEL);
+        ItemStack shadowSolarPanel = new ItemStack(BlockRegister.SHADOW_BEEKEEPERS_SOLAR_PANEL);
+        ItemStack sulfuricSolarPanel = new ItemStack(BlockRegister.SULFURIC_BEEKEEPERS_SOLAR_PANEL);
 
         // Compressor
         CompressorRecipesRegister.register();
 
+        // Macerator
+        MaceratorRecipesRegister.register();
+
+        GameRegistry.addRecipe(new ItemStack(BlockRegister.SULFURIC_BEEKEEPERS_SOLAR_PANEL, 1),
+                "MCM",
+                "PAP",
+                "GSG",
+                'C', ItemRegister.CRYSTALLIZED_SULFURIC_CORE_ITEM,
+                'M', ItemRegister.ABSORBING_MATRIX_SULFURIC,
+                'P', shadowSolarPanel,
+                'A', ItemRegister.COMPUTATION_ARRAY_CIRCUIT,
+                'G', ItemRegister.CRYSTALLIZED_SCENTED_SULFURIC_GEAR,
+                'S', ItemRegister.SULFURIC_INFUSED_MACHINE_CASING
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SCENTED_SULFURIC_GEAR, 1),
+                "CPC",
+                "PGP",
+                "CPC",
+                'C', ItemRegister.CRYSTALLIZED_SULFURIC_SHARD_ITEM,
+                'P', ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY,
+                'G', ItemRegister.CRYSTALLIZED_SCENTED_SHADOW_GEAR
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.SULFURIC_INFUSED_MACHINE_CASING, 1),
+                "CRS",
+                "MPM",
+                "SRC",
+                'C', ItemRegister.SULFURIC_CRYSTAL,
+                'R', ItemRegister.REINFORCED_WOVEN_SILK,
+                'S', ItemRegister.CRYSTALLIZED_SULFURIC_SHARD_ITEM,
+                'M', ItemRegister.SHADOW_INFUSED_MACHINE_CASING,
+                'P', ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SULFURIC_CORE_ITEM, 1),
+                "CQC",
+                "PSP",
+                "CQC",
+                'C', ItemRegister.SULFURIC_CRYSTAL,
+                'Q', ItemRegister.COMPUTATION_ARRAY_CIRCUIT,
+                'P', ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY,
+                'S', ItemRegister.CRYSTALLIZED_SHADOW_CORE_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.ABSORBING_MATRIX_SULFURIC, 1),
+                "CSC",
+                "MOM",
+                "CSC",
+                'C', ItemRegister.CRYSTALLIZED_SULFURIC_SHARD_ITEM,
+                'S', ItemRegister.ABSORBING_MATRIX_SHADOW,
+                'M', ItemRegister.ABSORBING_MATRIX_FRAME,
+                'O', ItemRegister.CRYSTALLIZED_SULFURIC_CORE_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.COMPUTATION_ARRAY_CIRCUIT, 1),
+                "QAQ",
+                "CMC",
+                "QAQ",
+                'Q', ItemRegister.QUANTUM_CIRCUIT,
+                'A', advancedCircuit,
+                'C', ItemRegister.REINFORCED_WOVEN_SILK,
+                'M', ItemRegister.ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CONCENTRATED_SULFURIC_SHARD_EXTRACT, 4),
+                "SDS",
+                "DCD",
+                "SDS",
+                'S', ItemRegister.CRUSHED_SULFURIC_SHARD,
+                'D', diamondDust,
+                'C', ItemRegister.CRYSTALLIZED_SULFURIC_SHARD_ITEM
+        );
         GameRegistry.addRecipe(new ItemStack(ItemRegister.QUANTUM_CIRCUIT, 1),
                 "CDC",
                 "AIA",

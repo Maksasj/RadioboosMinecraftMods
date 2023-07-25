@@ -28,6 +28,10 @@ item.absorbingMatrixShadow.name=Absorbing Matrix Shadow
 item.crystallizedScentedRipeGear.name=Crystallized Scented Ripe Gear
 item.crystallizedScentedShadowGear.name=Crystallized Scented Shadow Gear
 
+item.quantumCircuit.name=Quantum Circuit
+
+item.shadowInfusedMachineCasing.name=Shadow Infused Machine Casing
+
 item.irradiantIridium.name=Irradiant Iridium
 item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy
 item.denseEnrichedIrradiantIridiumAlloy.name=Dense Enriched Irradiant Iridium Alloy

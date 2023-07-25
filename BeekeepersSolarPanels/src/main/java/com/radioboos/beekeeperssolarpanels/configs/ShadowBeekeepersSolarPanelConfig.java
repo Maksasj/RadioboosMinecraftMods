@@ -6,9 +6,9 @@ public class ShadowBeekeepersSolarPanelConfig extends CommonSolarPanelConfig {
     public ShadowBeekeepersSolarPanelConfig(String configLabel) {
         super(configLabel);
 
-        this.capacity = 1000000;
-        this.maxDrain = 16000;
-        this.dayProduction = 8000;
-        this.nightProduction = 4000;
+        this.capacity = 5000000;
+        this.maxDrain = 50000;
+        this.dayProduction = 25000;
+        this.nightProduction = 12500;
     }
 }

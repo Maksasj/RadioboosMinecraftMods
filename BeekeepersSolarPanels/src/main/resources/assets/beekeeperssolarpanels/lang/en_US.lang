@@ -24,13 +24,19 @@ item.compressedSilkCube.name=Compressed Silk Cube
 
 item.absorbingMatrixFrame.name=Absorbing Matrix Frame
 item.absorbingMatrixShadow.name=Absorbing Matrix Shadow
+item.absorbingMatrixSulfuric.name=Absorbing Matrix Sulfuric
 
 item.crystallizedScentedRipeGear.name=Crystallized Scented Ripe Gear
 item.crystallizedScentedShadowGear.name=Crystallized Scented Shadow Gear
+item.crystallizedScentedSulfuricGear.name=Crystallized Scented Sulfuric Gear
 
 item.quantumCircuit.name=Quantum Circuit
+item.computationArrayCircuit.name=Computation Array Circuit
 
 item.shadowInfusedMachineCasing.name=Shadow Infused Machine Casing
+item.sulfuricInfusedMachineCasing.name=Sulfuric Infused Machine Casing
+
+item.sulfuricCrystal.name=Sulfuric Crystal
 
 item.irradiantIridium.name=Irradiant Iridium
 item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy

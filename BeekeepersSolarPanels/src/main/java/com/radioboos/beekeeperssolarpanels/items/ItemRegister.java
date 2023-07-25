@@ -3,10 +3,17 @@ package com.radioboos.beekeeperssolarpanels.items;
 import com.radioboos.beekeeperssolarpanels.common.CommonRegister;
 import com.radioboos.beekeeperssolarpanels.items.misc.*;
 import com.radioboos.beekeeperssolarpanels.items.misc.casing.ShadowInfusedMachineCasing;
+import com.radioboos.beekeeperssolarpanels.items.misc.casing.SulfuricInfusedMachineCasing;
+import com.radioboos.beekeeperssolarpanels.items.misc.circuits.ComputationArrayCircuit;
 import com.radioboos.beekeeperssolarpanels.items.misc.circuits.QuantumCircuit;
 import com.radioboos.beekeeperssolarpanels.items.misc.cores.*;
+import com.radioboos.beekeeperssolarpanels.items.misc.crystals.SulfuricCrystal;
 import com.radioboos.beekeeperssolarpanels.items.misc.gears.CrystallizedScentedRipeGear;
 import com.radioboos.beekeeperssolarpanels.items.misc.gears.CrystallizedScentedShadowGear;
+import com.radioboos.beekeeperssolarpanels.items.misc.gears.CrystallizedScentedSulfuricGear;
+import com.radioboos.beekeeperssolarpanels.items.misc.matrices.AbsorbingMatrixFrame;
+import com.radioboos.beekeeperssolarpanels.items.misc.matrices.AbsorbingMatrixShadow;
+import com.radioboos.beekeeperssolarpanels.items.misc.matrices.AbsorbingMatrixSulfuric;
 import com.radioboos.beekeeperssolarpanels.items.misc.shards.CrystallizedRipeShard;
 import com.radioboos.beekeeperssolarpanels.items.misc.silk.CompositeWovenSilk;
 import com.radioboos.beekeeperssolarpanels.items.misc.silk.CompressedSilkCube;
@@ -35,12 +42,17 @@ public class ItemRegister extends CommonRegister {
     public static Item SILK_LUMP = new SilkLump("silkLump");
     public static Item SILK_CUBE = new SilkCube("silkCube");
     public static Item COMPRESSED_SILK_CUBE = new CompressedSilkCube("compressedSilkCube");
-    public static Item ABSORBING_MATRIX_FRAME = new SilkCube("absorbingMatrixFrame");
-    public static Item ABSORBING_MATRIX_SHADOW = new SilkCube("absorbingMatrixShadow");
+    public static Item ABSORBING_MATRIX_FRAME = new AbsorbingMatrixFrame("absorbingMatrixFrame");
+    public static Item ABSORBING_MATRIX_SHADOW = new AbsorbingMatrixShadow("absorbingMatrixShadow");
+    public static Item ABSORBING_MATRIX_SULFURIC = new AbsorbingMatrixSulfuric("absorbingMatrixSulfuric");
     public static Item CRYSTALLIZED_SCENTED_RIPE_GEAR = new CrystallizedScentedRipeGear("crystallizedScentedRipeGear");
     public static Item CRYSTALLIZED_SCENTED_SHADOW_GEAR = new CrystallizedScentedShadowGear("crystallizedScentedShadowGear");
+    public static Item CRYSTALLIZED_SCENTED_SULFURIC_GEAR = new CrystallizedScentedSulfuricGear("crystallizedScentedSulfuricGear");
     public static Item QUANTUM_CIRCUIT = new QuantumCircuit("quantumCircuit");
+    public static Item COMPUTATION_ARRAY_CIRCUIT = new ComputationArrayCircuit("computationArrayCircuit");
     public static Item SHADOW_INFUSED_MACHINE_CASING = new ShadowInfusedMachineCasing("shadowInfusedMachineCasing");
+    public static Item SULFURIC_INFUSED_MACHINE_CASING = new SulfuricInfusedMachineCasing("sulfuricInfusedMachineCasing");
+    public static Item SULFURIC_CRYSTAL = new SulfuricCrystal("sulfuricCrystal");
     public static Item IRRADIANT_IRIDIUM_ITEM = new IrradiantIridium("irradiantIridium");
     public static Item ENRICHED_IRRADIANT_IRIDIUM_ALLOY = new EnrichedIrradiantIridiumAlloy("enrichedIrradiantIridiumAlloy");
     public static Item DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY = new DenseEnrichedIrradiantIridiumAlloy("denseEnrichedIrradiantIridiumAlloy");
@@ -70,13 +82,19 @@ public class ItemRegister extends CommonRegister {
 
         GameRegistry.registerItem(ABSORBING_MATRIX_FRAME, "absorbingMatrixFrame");
         GameRegistry.registerItem(ABSORBING_MATRIX_SHADOW, "absorbingMatrixShadow");
+        GameRegistry.registerItem(ABSORBING_MATRIX_SULFURIC, "absorbingMatrixSulfuric");
 
         GameRegistry.registerItem(CRYSTALLIZED_SCENTED_RIPE_GEAR, "crystallizedScentedRipeGear");
         GameRegistry.registerItem(CRYSTALLIZED_SCENTED_SHADOW_GEAR, "crystallizedScentedShadowGear");
+        GameRegistry.registerItem(CRYSTALLIZED_SCENTED_SULFURIC_GEAR, "crystallizedScentedSulfuricGear");
 
         GameRegistry.registerItem(QUANTUM_CIRCUIT, "quantumCircuit");
+        GameRegistry.registerItem(COMPUTATION_ARRAY_CIRCUIT, "computationArrayCircuit");
 
         GameRegistry.registerItem(SHADOW_INFUSED_MACHINE_CASING, "shadowInfusedMachineCasing");
+        GameRegistry.registerItem(SULFURIC_INFUSED_MACHINE_CASING, "sulfuricInfusedMachineCasing");
+
+        GameRegistry.registerItem(SULFURIC_CRYSTAL, "sulfuricCrystal");
 
         GameRegistry.registerItem(IRRADIANT_IRIDIUM_ITEM, "irradiantIridium");
         GameRegistry.registerItem(ENRICHED_IRRADIANT_IRIDIUM_ALLOY, "enrichedIrradiantIridiumAlloy");

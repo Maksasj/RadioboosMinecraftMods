@@ -29,6 +29,7 @@ public class CompressorRecipesRegister extends CommonRegister {
         Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.SILK_CUBE), 9), null, new ItemStack(ItemRegister.COMPRESSED_SILK_CUBE, 1));
 
         Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.CONCENTRATED_SULFURIC_SHARD_EXTRACT), 9), null, new ItemStack(ItemRegister.SULFURIC_CRYSTAL, 1));
+        Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.CONCENTRATED_SHIMMERING_SHARD_EXTRACT), 9), null, new ItemStack(ItemRegister.SHIMMERING_CRYSTAL, 1));
 
         Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.ENRICHED_IRRADIANT_IRIDIUM_ALLOY), 9), null, new ItemStack(ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY, 1));
     }

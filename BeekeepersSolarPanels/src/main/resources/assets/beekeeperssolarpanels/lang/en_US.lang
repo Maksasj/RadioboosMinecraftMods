@@ -18,34 +18,50 @@ item.crystallizedPlatinumCore.name=Crystallized Platinum Core
 
 item.reinforcedWovenSilk.name=Reinforced Woven Silk
 item.compositeWovenSilk.name=Composite Woven Silk
+item.shimmeringWovenSilk.name=Shimmering Woven Silk
 item.silkLump.name=Silk Lump
+item.shimmeringSilkLump.name=Shimmering Silk Lump
+item.shimmeringString.name=Shimmering String
 item.silkCube.name=Silk Cube
 item.compressedSilkCube.name=Compressed Silk Cube
 
 item.absorbingMatrixFrame.name=Absorbing Matrix Frame
+item.shimmeringInfusedAbsorbingMatrixFrame.name=Shimmering Infused Absorbing Matrix Frame
 item.absorbingMatrixShadow.name=Absorbing Matrix Shadow
 item.absorbingMatrixSulfuric.name=Absorbing Matrix Sulfuric
+item.absorbingMatrixShimmering.name=Absorbing Matrix Shimmering
 
 item.crystallizedScentedRipeGear.name=Crystallized Scented Ripe Gear
 item.crystallizedScentedShadowGear.name=Crystallized Scented Shadow Gear
 item.crystallizedScentedSulfuricGear.name=Crystallized Scented Sulfuric Gear
+item.crystallizedScentedShimmeringGear.name=Crystallized Scented Shimmering Gear
 
 item.quantumCircuit.name=Quantum Circuit
 item.computationArrayCircuit.name=Computation Array Circuit
+item.optimizedComputationArrayCircuit.name=Optimized Computation Array Circuit
 
 item.shadowInfusedMachineCasing.name=Shadow Infused Machine Casing
 item.sulfuricInfusedMachineCasing.name=Sulfuric Infused Machine Casing
+item.shimmeringInfusedMachineCasing.name=Shimmering Infused Machine Casing
 
 item.concentratedSulfuricShardExtract.name=Concentrated Sulfuric Shard Extract
+item.concentratedShimmeringShardExtract.name=Concentrated Shimmering Shard Extract
+item.concentratedUranicShardExtract.name=Concentrated Uranic Shard Extract
+item.concentratedDiamondShardExtract.name=Concentrated Diamond Shard Extract
+item.concentratedPlatinumShardExtract.name=Concentrated Platinum Shard Extract
+
 item.crushedSulfuricShard.name=Crushed Sulfuric Shard
+item.crushedShimmeringShard.name=Crushed Shimmering Shard
+item.crushedUranicShard.name=Crushed Uranic Shard
+item.crushedDiamondShard.name=Crushed Diamond Shard
+item.crushedPlatinumShard.name=Crushed Platinum Shard
 
 item.sulfuricCrystal.name=Sulfuric Crystal
+item.shimmeringCrystal.name=Sulfuric Crystal
 
 item.irradiantIridium.name=Irradiant Iridium
 item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy
 item.denseEnrichedIrradiantIridiumAlloy.name=Dense Enriched Irradiant Iridium Alloy
-
-tile.ripeBeekeepersSolarPanelBlock.name=Ripe Beekeepers Solar Panel
 
 tile.ripeBeekeepersSolarPanelBlock.name=Ripe Beekeepers Solar Panel
 tile.shadowBeekeepersSolarPanelBlock.name=Shadow Beekeepers Solar Panel

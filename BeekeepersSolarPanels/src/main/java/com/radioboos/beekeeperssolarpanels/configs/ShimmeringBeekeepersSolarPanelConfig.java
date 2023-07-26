@@ -6,9 +6,9 @@ public class ShimmeringBeekeepersSolarPanelConfig extends CommonSolarPanelConfig
     public ShimmeringBeekeepersSolarPanelConfig(String configLabel) {
         super(configLabel);
 
-        this.capacity = 1000000;
-        this.maxDrain = 16000;
-        this.dayProduction = 8000;
-        this.nightProduction = 4000;
+        this.capacity = 10000000;
+        this.maxDrain = 280000;
+        this.dayProduction = 140000;
+        this.nightProduction = 70000;
     }
 }

@@ -31,6 +31,7 @@ public class RecipeRegister extends CommonRegister {
         ItemStack insulatedGoldCable = IC2Items.getItem("insulatedGoldCableItem");
         ItemStack advancedCircuit = IC2Items.getItem("advancedCircuit");
         ItemStack diamondDust = IC2Items.getItem("diamondDust");
+        ItemStack glassFiberCable = IC2Items.getItem("glassFiberCableItem");
         ItemStack glowstonePowder = new ItemStack(Items.glowstone_dust);
         ItemStack string = new ItemStack(Items.string);
 
@@ -44,6 +45,38 @@ public class RecipeRegister extends CommonRegister {
         // Macerator
         MaceratorRecipesRegister.register();
 
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SHIMMERING_CORE_ITEM, 1),
+                "CAC",
+                "FSF",
+                "CAC",
+                'C', ItemRegister.SHIMMERING_CRYSTAL,
+                'A', ItemRegister.OPTIMIZED_COMPUTATION_ARRAY_CIRCUIT,
+                'F', ItemRegister.SHIMMERING_WOVEN_SILK,
+                'S', ItemRegister.CRYSTALLIZED_SULFURIC_CORE_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.SHIMMERING_SILK_LUMP, 1),
+                "SMS",
+                "MSM",
+                "SMS",
+                'M', ItemRegister.SILK_LUMP,
+                'S', ItemRegister.SHIMMERING_STRING
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.SHIMMERING_WOVEN_SILK, 1),
+                "SMS",
+                "MCM",
+                "SMS",
+                'C', Items.ender_eye,
+                'M', ItemRegister.REINFORCED_WOVEN_SILK,
+                'S', ItemRegister.SHIMMERING_SILK_LUMP
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.SHIMMERING_STRING, 1),
+                "SMS",
+                "MCM",
+                "SMS",
+                'C', Items.string,
+                'M', ForestryCraftingMaterialApi.PULSATING_MESH,
+                'S', ItemRegister.CRYSTALLIZED_SHIMMERING_SHARD_ITEM
+        );
         GameRegistry.addRecipe(new ItemStack(BlockRegister.SULFURIC_BEEKEEPERS_SOLAR_PANEL, 1),
                 "MCM",
                 "PAP",
@@ -55,6 +88,14 @@ public class RecipeRegister extends CommonRegister {
                 'G', ItemRegister.CRYSTALLIZED_SCENTED_SULFURIC_GEAR,
                 'S', ItemRegister.SULFURIC_INFUSED_MACHINE_CASING
         );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SCENTED_SHIMMERING_GEAR, 1),
+                "CPC",
+                "PGP",
+                "CPC",
+                'C', ItemRegister.CRYSTALLIZED_SHIMMERING_SHARD_ITEM,
+                'P', ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY,
+                'G', ItemRegister.CRYSTALLIZED_SCENTED_SULFURIC_GEAR
+        );
         GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SCENTED_SULFURIC_GEAR, 1),
                 "CPC",
                 "PGP",
@@ -62,6 +103,16 @@ public class RecipeRegister extends CommonRegister {
                 'C', ItemRegister.CRYSTALLIZED_SULFURIC_SHARD_ITEM,
                 'P', ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY,
                 'G', ItemRegister.CRYSTALLIZED_SCENTED_SHADOW_GEAR
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.SHIMMERING_INFUSED_MACHINE_CASING, 1),
+                "CRS",
+                "MPM",
+                "SRC",
+                'C', ItemRegister.SHIMMERING_CRYSTAL,
+                'R', ItemRegister.SHIMMERING_WOVEN_SILK,
+                'S', ItemRegister.CRYSTALLIZED_SHIMMERING_SHARD_ITEM,
+                'M', ItemRegister.SULFURIC_INFUSED_MACHINE_CASING,
+                'P', ItemRegister.OPTIMIZED_COMPUTATION_ARRAY_CIRCUIT
         );
         GameRegistry.addRecipe(new ItemStack(ItemRegister.SULFURIC_INFUSED_MACHINE_CASING, 1),
                 "CRS",
@@ -108,6 +159,38 @@ public class RecipeRegister extends CommonRegister {
                 'D', diamondDust,
                 'C', ItemRegister.CRYSTALLIZED_SULFURIC_SHARD_ITEM
         );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CONCENTRATED_SHIMMERING_SHARD_EXTRACT, 4),
+                "SDS",
+                "DCD",
+                "SDS",
+                'S', ItemRegister.CRUSHED_SHIMMERING_SHARD,
+                'D', diamondDust,
+                'C', ItemRegister.CRYSTALLIZED_SHIMMERING_SHARD_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CONCENTRATED_URANIC_SHARD_EXTRACT, 4),
+                "SDS",
+                "DCD",
+                "SDS",
+                'S', ItemRegister.CRUSHED_URANIC_SHARD,
+                'D', diamondDust,
+                'C', ItemRegister.CRYSTALLIZED_URANIC_SHARD_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CONCENTRATED_DIAMOND_SHARD_EXTRACT, 4),
+                "SDS",
+                "DCD",
+                "SDS",
+                'S', ItemRegister.CRUSHED_DIAMOND_SHARD,
+                'D', diamondDust,
+                'C', ItemRegister.CRYSTALLIZED_DIAMOND_SHARD_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CONCENTRATED_PLATINUM_SHARD_EXTRACT, 4),
+                "SDS",
+                "DCD",
+                "SDS",
+                'S', ItemRegister.CRUSHED_PLATINUM_SHARD,
+                'D', diamondDust,
+                'C', ItemRegister.CRYSTALLIZED_PLATINUM_SHARD_ITEM
+        );
         GameRegistry.addRecipe(new ItemStack(ItemRegister.QUANTUM_CIRCUIT, 1),
                 "CDC",
                 "AIA",
@@ -149,6 +232,32 @@ public class RecipeRegister extends CommonRegister {
                 'S', ItemRegister.CRYSTALLIZED_SHADOW_SHARD_ITEM,
                 'M', ItemRegister.ABSORBING_MATRIX_FRAME,
                 'C', ItemRegister.CRYSTALLIZED_SHADOW_CORE_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.ABSORBING_MATRIX_SHIMMERING, 1),
+                "CMC",
+                "FKF",
+                "CMC",
+                'C', ItemRegister.SHIMMERING_CRYSTAL,
+                'M', ItemRegister.ABSORBING_MATRIX_SULFURIC,
+                'F', ItemRegister.SHIMMERING_INFUSED_ABSORBING_MATRIX_FRAME,
+                'K', ItemRegister.CRYSTALLIZED_SHIMMERING_CORE_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.SHIMMERING_INFUSED_ABSORBING_MATRIX_FRAME, 1),
+                "SMS",
+                "MQM",
+                "SMS",
+                'S', ItemRegister.SHIMMERING_WOVEN_SILK,
+                'M', ItemRegister.ABSORBING_MATRIX_FRAME,
+                'Q', ItemRegister.COMPUTATION_ARRAY_CIRCUIT
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.OPTIMIZED_COMPUTATION_ARRAY_CIRCUIT, 1),
+                "ACA",
+                "FMF",
+                "ACA",
+                'A', ItemRegister.COMPUTATION_ARRAY_CIRCUIT,
+                'C', glassFiberCable,
+                'F', ItemRegister.SHIMMERING_WOVEN_SILK,
+                'M', ItemRegister.SHIMMERING_INFUSED_ABSORBING_MATRIX_FRAME
         );
         GameRegistry.addRecipe(new ItemStack(ItemRegister.SILK_LUMP, 1),
                 "#X#",
@@ -242,6 +351,17 @@ public class RecipeRegister extends CommonRegister {
                 'R', ripeSolarPanel,
                 'G', ItemRegister.CRYSTALLIZED_SCENTED_SHADOW_GEAR,
                 'C', ItemRegister.SHADOW_INFUSED_MACHINE_CASING
+        );
+        GameRegistry.addRecipe(new ItemStack(BlockRegister.SHIMMERING_BEEKEEPERS_SOLAR_PANEL, 1),
+                "MIM",
+                "QPQ",
+                "GCG",
+                'M', ItemRegister.ABSORBING_MATRIX_SHIMMERING,
+                'I', ItemRegister.CRYSTALLIZED_SHIMMERING_CORE_ITEM,
+                'Q', ItemRegister.OPTIMIZED_COMPUTATION_ARRAY_CIRCUIT,
+                'P', sulfuricSolarPanel,
+                'G', ItemRegister.CRYSTALLIZED_SCENTED_SHIMMERING_GEAR,
+                'C', ItemRegister.SHIMMERING_INFUSED_MACHINE_CASING
         );
     }
 }

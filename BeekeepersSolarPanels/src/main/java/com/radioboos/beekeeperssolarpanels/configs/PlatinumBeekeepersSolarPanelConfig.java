@@ -6,9 +6,9 @@ public class PlatinumBeekeepersSolarPanelConfig extends CommonSolarPanelConfig {
     public PlatinumBeekeepersSolarPanelConfig(String configLabel) {
         super(configLabel);
 
-        this.capacity = 1000000;
-        this.maxDrain = 16000;
-        this.dayProduction = 8000;
-        this.nightProduction = 4000;
+        this.capacity = 100000000;
+        this.maxDrain = 3000000;
+        this.dayProduction = 1400000;
+        this.nightProduction = 700000;
     }
 }

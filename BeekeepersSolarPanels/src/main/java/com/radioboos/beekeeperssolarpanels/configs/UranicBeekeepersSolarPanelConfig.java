@@ -6,9 +6,9 @@ public class UranicBeekeepersSolarPanelConfig extends CommonSolarPanelConfig {
     public UranicBeekeepersSolarPanelConfig(String configLabel) {
         super(configLabel);
 
-        this.capacity = 1000000;
-        this.maxDrain = 16000;
-        this.dayProduction = 8000;
-        this.nightProduction = 4000;
+        this.capacity = 2000000;
+        this.maxDrain = 650000;
+        this.dayProduction = 325000;
+        this.nightProduction = 162500;
     }
 }

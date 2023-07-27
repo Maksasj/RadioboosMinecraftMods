@@ -1,4 +1,4 @@
-package com.radioboos.beekeeperssolarpanels.items.misc;
+package com.radioboos.beekeeperssolarpanels.items.misc.plates;
 
 import com.radioboos.beekeeperssolarpanels.common.CommonItem;
 

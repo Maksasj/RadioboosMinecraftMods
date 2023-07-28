@@ -578,5 +578,18 @@ public class RecipeRegister extends CommonRegister {
                 'G', ItemRegister.CRYSTALLIZED_SCENTED_PLATINUM_GEAR,
                 'C', ItemRegister.PLATINUM_INFUSED_MACHINE_CASING
         );
+        GameRegistry.addRecipe(new ItemStack(BlockRegister.SINGULAR_BEEKEEPERS_SOLAR_PANEL, 1),
+                "DQU",
+                "HPS",
+                "SQR",
+                'S', shadowSolarPanel,
+                'H', shimmeringSolarPanel,
+                'D', diamondSolarPanel,
+                'U', uranicSolarPanel,
+                'S', sulfuricSolarPanel,
+                'R', ripeSolarPanel,
+                'P', platinumSolarPanel,
+                'Q', ItemRegister.SINGULAR_COMPUTATION_PROCESSOR
+        );
     }
 }

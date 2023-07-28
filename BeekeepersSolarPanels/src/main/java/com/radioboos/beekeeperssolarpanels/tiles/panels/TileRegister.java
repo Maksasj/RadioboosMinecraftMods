@@ -12,6 +12,7 @@ public class TileRegister extends CommonRegister {
     public static final TileEntity SHIMMERING_BEEKEEPERS_SOLAR_PANEL = new ShimmeringBeekeepersSolarPanelTileEntity();
     public static final TileEntity SULFURIC_BEEKEEPERS_SOLAR_PANEL = new SulfuricBeekeepersSolarPanelTileEntity();
     public static final TileEntity URANIC_BEEKEEPERS_SOLAR_PANEL = new UranicBeekeepersSolarPanelTileEntity();
+    public static final TileEntity SINGULAR_BEEKEEPERS_SOLAR_PANEL = new SingularBeekeepersSolarPanelTileEntity();
 
     public static void register() {
         GameRegistry.registerTileEntity(RipeBeekeepersSolarPanelTileEntity.class, "RipeBeekeepersSolarPanel");
@@ -21,5 +22,6 @@ public class TileRegister extends CommonRegister {
         GameRegistry.registerTileEntity(ShimmeringBeekeepersSolarPanelTileEntity.class, "ShimmeringBeekeepersSolarPanel");
         GameRegistry.registerTileEntity(SulfuricBeekeepersSolarPanelTileEntity.class, "SulfuricBeekeepersSolarPanel");
         GameRegistry.registerTileEntity(UranicBeekeepersSolarPanelTileEntity.class, "UranicBeekeepersSolarPanel");
+        GameRegistry.registerTileEntity(SingularBeekeepersSolarPanelTileEntity.class, "SingularBeekeepersSolarPanel");
     }
 }

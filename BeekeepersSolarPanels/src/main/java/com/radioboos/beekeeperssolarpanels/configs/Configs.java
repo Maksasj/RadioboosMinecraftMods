@@ -13,6 +13,7 @@ public class Configs {
     public static CommonSolarPanelConfig SHIMMERING_BEEKEEPERS_SOLAR_PANEL = new ShimmeringBeekeepersSolarPanelConfig("shimmeringBeekeepersSolarPanelConfig");
     public static CommonSolarPanelConfig SULFURIC_BEEKEEPERS_SOLAR_PANEL = new SulfuricBeekeepersSolarPanelConfig("sulfuricBeekeepersSolarPanelConfig");
     public static CommonSolarPanelConfig URANIC_BEEKEEPERS_SOLAR_PANEL = new UranicBeekeepersSolarPanelConfig("uranicBeekeepersSolarPanelConfig");
+    public static CommonSolarPanelConfig SINGULAR_BEEKEEPERS_SOLAR_PANEL = new SingularBeekeepersSolarPanelConfig("singularBeekeepersSolarPanelConfig");
 
     public static void loadConfig(FMLPreInitializationEvent event) {
         Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
@@ -26,6 +27,7 @@ public class Configs {
             SHIMMERING_BEEKEEPERS_SOLAR_PANEL.loadConfig(cfg);
             SULFURIC_BEEKEEPERS_SOLAR_PANEL.loadConfig(cfg);
             URANIC_BEEKEEPERS_SOLAR_PANEL.loadConfig(cfg);
+            SINGULAR_BEEKEEPERS_SOLAR_PANEL.loadConfig(cfg);
         } catch (Exception e) {
             System.out.println("Beekeepers Solar Panels was unable to load it's configuration successfully");
             throw new RuntimeException(e);

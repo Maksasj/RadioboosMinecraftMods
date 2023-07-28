@@ -30,7 +30,14 @@ public class CompressorRecipesRegister extends CommonRegister {
 
         Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.CONCENTRATED_SULFURIC_SHARD_EXTRACT), 9), null, new ItemStack(ItemRegister.SULFURIC_CRYSTAL, 1));
         Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.CONCENTRATED_SHIMMERING_SHARD_EXTRACT), 9), null, new ItemStack(ItemRegister.SHIMMERING_CRYSTAL, 1));
+        Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.CONCENTRATED_URANIC_SHARD_EXTRACT), 9), null, new ItemStack(ItemRegister.URANIC_CRYSTAL, 1));
+        Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.CONCENTRATED_DIAMOND_SHARD_EXTRACT), 9), null, new ItemStack(ItemRegister.DIAMOND_CRYSTAL, 1));
+        Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.CONCENTRATED_PLATINUM_SHARD_EXTRACT), 9), null, new ItemStack(ItemRegister.PLATINUM_CRYSTAL, 1));
+
+        Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.OPTICAL_CRYSTAL_DUST), 9), null, new ItemStack(ItemRegister.OPTICAL_CRYSTAL, 1));
 
         Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.ENRICHED_IRRADIANT_IRIDIUM_ALLOY), 9), null, new ItemStack(ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY, 1));
+        Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.DIAMOND_INFUSED_PLATE), 9), null, new ItemStack(ItemRegister.DIAMOND_INFUSED_DENSE_PLATE, 1));
+        Recipes.compressor.addRecipe(new RecipeInputItemStack(new ItemStack(ItemRegister.PLATINUM_INFUSED_PLATE), 9), null, new ItemStack(ItemRegister.PLATINUM_INFUSED_DENSE_PLATE, 1));
     }
 }

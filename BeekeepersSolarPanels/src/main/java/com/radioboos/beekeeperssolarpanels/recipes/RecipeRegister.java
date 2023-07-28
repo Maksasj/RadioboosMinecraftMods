@@ -14,6 +14,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import ic2.api.item.IC2Items;
 import ic2.api.recipe.RecipeInputItemStack;
 import ic2.api.recipe.Recipes;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -34,10 +35,15 @@ public class RecipeRegister extends CommonRegister {
         ItemStack glassFiberCable = IC2Items.getItem("glassFiberCableItem");
         ItemStack glowstonePowder = new ItemStack(Items.glowstone_dust);
         ItemStack string = new ItemStack(Items.string);
+        ItemStack glass = new ItemStack(Blocks.glass);
 
         ItemStack ripeSolarPanel = new ItemStack(BlockRegister.RIPE_BEEKEEPERS_SOLAR_PANEL);
         ItemStack shadowSolarPanel = new ItemStack(BlockRegister.SHADOW_BEEKEEPERS_SOLAR_PANEL);
         ItemStack sulfuricSolarPanel = new ItemStack(BlockRegister.SULFURIC_BEEKEEPERS_SOLAR_PANEL);
+        ItemStack shimmeringSolarPanel = new ItemStack(BlockRegister.SHIMMERING_BEEKEEPERS_SOLAR_PANEL);
+        ItemStack uranicSolarPanel = new ItemStack(BlockRegister.URANIC_BEEKEEPERS_SOLAR_PANEL);
+        ItemStack diamondSolarPanel = new ItemStack(BlockRegister.DIAMOND_BEEKEEPERS_SOLAR_PANEL);
+        ItemStack platinumSolarPanel = new ItemStack(BlockRegister.PLATINUM_BEEKEEPERS_SOLAR_PANEL);
 
         // Compressor
         CompressorRecipesRegister.register();
@@ -45,6 +51,182 @@ public class RecipeRegister extends CommonRegister {
         // Macerator
         MaceratorRecipesRegister.register();
 
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_PLATINUM_CORE_ITEM, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.PLATINUM_INFUSED_DENSE_PLATE,
+                'M', ItemRegister.SINGULAR_COMPUTATION_PROCESSOR,
+                'U', ItemRegister.CRYSTALLIZED_DIAMOND_CORE_ITEM,
+                'O', ItemRegister.SINGULAR_INFUSED_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.PLATINUM_INFUSED_MACHINE_CASING, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.PLATINUM_INFUSED_DENSE_PLATE,
+                'M', ItemRegister.SINGULAR_INFUSED_ABSORBING_MATRIX_FRAME,
+                'U', ItemRegister.DIAMOND_INFUSED_MACHINE_CASING,
+                'O', ItemRegister.SINGULAR_COMPUTATION_PROCESSOR
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SCENTED_PLATINUM_GEAR, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.PLATINUM_CRYSTAL,
+                'M', ItemRegister.CRYSTALLIZED_SCENTED_DIAMOND_GEAR,
+                'U', ItemRegister.PLATINUM_INFUSED_DENSE_PLATE,
+                'O', ItemRegister.SINGULAR_COMPUTATION_PROCESSOR
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.SINGULAR_COMPUTATION_PROCESSOR, 1),
+                "CUC",
+                "UOU",
+                "CUC",
+                'C', ItemRegister.PLATINUM_INFUSED_DENSE_PLATE,
+                'U', ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT,
+                'O', ItemRegister.SINGULAR_INFUSED_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.ABSORBING_MATRIX_PLATINUM, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.SINGULAR_COMPUTATION_PROCESSOR,
+                'M', ItemRegister.ABSORBING_MATRIX_DIAMOND,
+                'U', ItemRegister.CRYSTALLIZED_PLATINUM_CORE_ITEM,
+                'O', ItemRegister.SINGULAR_INFUSED_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.SINGULAR_INFUSED_ABSORBING_MATRIX_FRAME, 1),
+                "POP",
+                "MCM",
+                "POP",
+                'P', ItemRegister.DIAMOND_INFUSED_DENSE_PLATE,
+                'M', ItemRegister.OPTIC_CONCENTRATING_ABSORBING_MATRIX_FRAME,
+                'C', ItemRegister.DIAMOND_CRYSTAL,
+                'O', ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.ABSORBING_MATRIX_DIAMOND, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.DIAMOND_INFUSED_DENSE_PLATE,
+                'M', ItemRegister.ABSORBING_MATRIX_URANIC,
+                'U', ItemRegister.CRYSTALLIZED_DIAMOND_CORE_ITEM,
+                'O', ItemRegister.SINGULAR_INFUSED_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SCENTED_DIAMOND_GEAR, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.DIAMOND_CRYSTAL,
+                'M', ItemRegister.CRYSTALLIZED_SCENTED_URANIC_GEAR,
+                'U', ItemRegister.DIAMOND_INFUSED_DENSE_PLATE,
+                'O', ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_DIAMOND_CORE_ITEM, 1),
+                "CMP",
+                "UOU",
+                "PMC",
+                'C', ItemRegister.DIAMOND_CRYSTAL,
+                'P', ItemRegister.DIAMOND_INFUSED_DENSE_PLATE,
+                'M', ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT,
+                'U', ItemRegister.CRYSTALLIZED_URANIC_CORE_ITEM,
+                'O', ItemRegister.SINGULAR_INFUSED_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.DIAMOND_INFUSED_MACHINE_CASING, 1),
+                "CMP",
+                "UOU",
+                "PMC",
+                'C', ItemRegister.DIAMOND_CRYSTAL,
+                'P', ItemRegister.DIAMOND_INFUSED_DENSE_PLATE,
+                'M', ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT,
+                'U', ItemRegister.URANIC_INFUSED_MACHINE_CASING,
+                'O', ItemRegister.SINGULAR_INFUSED_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.PLATINUM_INFUSED_PLATE, 1),
+                "CPC",
+                "PDP",
+                "CPC",
+                'C', ItemRegister.PLATINUM_CRYSTAL,
+                'P', ItemRegister.DIAMOND_INFUSED_PLATE,
+                'D', ItemRegister.OPTICAL_CRYSTAL_DUST
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.DIAMOND_INFUSED_PLATE, 1),
+                "CPC",
+                "PDP",
+                "CPC",
+                'C', ItemRegister.DIAMOND_CRYSTAL,
+                'P', ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY,
+                'D', ItemRegister.OPTICAL_CRYSTAL_DUST
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.OPTICAL_FIBER, 1),
+                "CMC",
+                "MOM",
+                "CMC",
+                'C', ItemRegister.OPTICAL_CRYSTAL,
+                'M', ItemRegister.SHIMMERING_WOVEN_SILK,
+                'O', glassFiberCable
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_URANIC_CORE_ITEM, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.URANIC_CRYSTAL,
+                'M', ItemRegister.OPTIMIZED_COMPUTATION_ARRAY_CIRCUIT,
+                'U', ItemRegister.OPTIC_CONCENTRATING_ABSORBING_MATRIX_FRAME,
+                'O', ItemRegister.CRYSTALLIZED_SHIMMERING_CORE_ITEM
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.URANIC_INFUSED_MACHINE_CASING, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.URANIC_CRYSTAL,
+                'M', ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT,
+                'U', ItemRegister.SHIMMERING_INFUSED_MACHINE_CASING,
+                'O', ItemRegister.OPTIC_CONCENTRATING_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SCENTED_URANIC_GEAR, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.URANIC_CRYSTAL,
+                'M', ItemRegister.CRYSTALLIZED_SCENTED_SHIMMERING_GEAR,
+                'U', ItemRegister.DENSE_ENRICHED_IRRADIANT_IRIDIUM_ALLOY,
+                'O', ItemRegister.OPTIMIZED_COMPUTATION_ARRAY_CIRCUIT
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.ABSORBING_MATRIX_URANIC, 1),
+                "CMC",
+                "UOU",
+                "CMC",
+                'C', ItemRegister.URANIC_CRYSTAL,
+                'M', ItemRegister.ABSORBING_MATRIX_SHIMMERING,
+                'U', ItemRegister.CRYSTALLIZED_URANIC_CORE_ITEM,
+                'O', ItemRegister.OPTIC_CONCENTRATING_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.OPTIC_CONCENTRATING_ABSORBING_MATRIX_FRAME, 1),
+                "FOF",
+                "MCM",
+                "FOF",
+                'M', ItemRegister.SHIMMERING_INFUSED_ABSORBING_MATRIX_FRAME,
+                'F', ItemRegister.OPTICAL_FIBER,
+                'O', ItemRegister.OPTIMIZED_COMPUTATION_ARRAY_CIRCUIT,
+                'C', ItemRegister.OPTICAL_CRYSTAL
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT, 1),
+                "DCD",
+                "CMC",
+                "DCD",
+                'D', ItemRegister.OPTICAL_CRYSTAL,
+                'C', ItemRegister.OPTIMIZED_COMPUTATION_ARRAY_CIRCUIT,
+                'M', ItemRegister.OPTIC_CONCENTRATING_ABSORBING_MATRIX_FRAME
+        );
+        GameRegistry.addRecipe(new ItemStack(ItemRegister.OPTICAL_CRYSTAL_DUST, 1),
+                "DID",
+                "IGI",
+                "DID",
+                'D', diamondDust,
+                'I', iridiumPlate,
+                'G', glass
+        );
         GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SHIMMERING_CORE_ITEM, 1),
                 "CAC",
                 "FSF",
@@ -76,17 +258,6 @@ public class RecipeRegister extends CommonRegister {
                 'C', Items.string,
                 'M', ForestryCraftingMaterialApi.PULSATING_MESH,
                 'S', ItemRegister.CRYSTALLIZED_SHIMMERING_SHARD_ITEM
-        );
-        GameRegistry.addRecipe(new ItemStack(BlockRegister.SULFURIC_BEEKEEPERS_SOLAR_PANEL, 1),
-                "MCM",
-                "PAP",
-                "GSG",
-                'C', ItemRegister.CRYSTALLIZED_SULFURIC_CORE_ITEM,
-                'M', ItemRegister.ABSORBING_MATRIX_SULFURIC,
-                'P', shadowSolarPanel,
-                'A', ItemRegister.COMPUTATION_ARRAY_CIRCUIT,
-                'G', ItemRegister.CRYSTALLIZED_SCENTED_SULFURIC_GEAR,
-                'S', ItemRegister.SULFURIC_INFUSED_MACHINE_CASING
         );
         GameRegistry.addRecipe(new ItemStack(ItemRegister.CRYSTALLIZED_SCENTED_SHIMMERING_GEAR, 1),
                 "CPC",
@@ -352,6 +523,17 @@ public class RecipeRegister extends CommonRegister {
                 'G', ItemRegister.CRYSTALLIZED_SCENTED_SHADOW_GEAR,
                 'C', ItemRegister.SHADOW_INFUSED_MACHINE_CASING
         );
+        GameRegistry.addRecipe(new ItemStack(BlockRegister.SULFURIC_BEEKEEPERS_SOLAR_PANEL, 1),
+                "MCM",
+                "PAP",
+                "GSG",
+                'C', ItemRegister.CRYSTALLIZED_SULFURIC_CORE_ITEM,
+                'M', ItemRegister.ABSORBING_MATRIX_SULFURIC,
+                'P', shadowSolarPanel,
+                'A', ItemRegister.COMPUTATION_ARRAY_CIRCUIT,
+                'G', ItemRegister.CRYSTALLIZED_SCENTED_SULFURIC_GEAR,
+                'S', ItemRegister.SULFURIC_INFUSED_MACHINE_CASING
+        );
         GameRegistry.addRecipe(new ItemStack(BlockRegister.SHIMMERING_BEEKEEPERS_SOLAR_PANEL, 1),
                 "MIM",
                 "QPQ",
@@ -362,6 +544,39 @@ public class RecipeRegister extends CommonRegister {
                 'P', sulfuricSolarPanel,
                 'G', ItemRegister.CRYSTALLIZED_SCENTED_SHIMMERING_GEAR,
                 'C', ItemRegister.SHIMMERING_INFUSED_MACHINE_CASING
+        );
+        GameRegistry.addRecipe(new ItemStack(BlockRegister.URANIC_BEEKEEPERS_SOLAR_PANEL, 1),
+                "MCM",
+                "PAP",
+                "GSG",
+                'C', ItemRegister.CRYSTALLIZED_URANIC_CORE_ITEM,
+                'M', ItemRegister.ABSORBING_MATRIX_URANIC,
+                'P', shimmeringSolarPanel,
+                'A', ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT,
+                'G', ItemRegister.CRYSTALLIZED_SCENTED_URANIC_GEAR,
+                'S', ItemRegister.URANIC_INFUSED_MACHINE_CASING
+        );
+        GameRegistry.addRecipe(new ItemStack(BlockRegister.DIAMOND_BEEKEEPERS_SOLAR_PANEL, 1),
+                "MCM",
+                "PAP",
+                "GSG",
+                'C', ItemRegister.CRYSTALLIZED_DIAMOND_CORE_ITEM,
+                'M', ItemRegister.ABSORBING_MATRIX_DIAMOND,
+                'P', uranicSolarPanel,
+                'A', ItemRegister.OPTICAL_COMPUTATION_ARRAY_CIRCUIT,
+                'G', ItemRegister.CRYSTALLIZED_SCENTED_DIAMOND_GEAR,
+                'S', ItemRegister.DIAMOND_INFUSED_MACHINE_CASING
+        );
+        GameRegistry.addRecipe(new ItemStack(BlockRegister.PLATINUM_BEEKEEPERS_SOLAR_PANEL, 1),
+                "MIM",
+                "QPQ",
+                "GCG",
+                'M', ItemRegister.ABSORBING_MATRIX_PLATINUM,
+                'I', ItemRegister.CRYSTALLIZED_PLATINUM_CORE_ITEM,
+                'Q', ItemRegister.SINGULAR_COMPUTATION_PROCESSOR,
+                'P', diamondSolarPanel,
+                'G', ItemRegister.CRYSTALLIZED_SCENTED_PLATINUM_GEAR,
+                'C', ItemRegister.PLATINUM_INFUSED_MACHINE_CASING
         );
     }
 }

@@ -31,7 +31,7 @@ public class BeekeepersSolarPanels {
 
     @SidedProxy(
         clientSide = "com.radioboos.beekeeperssolarpanels.proxy.ClientProxy",
-        serverSide = "com.radioboos.beekeeperssolarpanels.common.ServerProxy")
+        serverSide = "com.radioboos.beekeeperssolarpanels.proxy.ServerProxy")
     public static CommonProxy proxy;
 
     @Mod.Instance("beekeeperssolarpanels")

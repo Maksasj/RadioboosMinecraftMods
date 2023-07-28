@@ -19,6 +19,7 @@ item.crystallizedPlatinumCore.name=Crystallized Platinum Core
 item.reinforcedWovenSilk.name=Reinforced Woven Silk
 item.compositeWovenSilk.name=Composite Woven Silk
 item.shimmeringWovenSilk.name=Shimmering Woven Silk
+item.opticalFiber.name=Optical Fiber
 item.silkLump.name=Silk Lump
 item.shimmeringSilkLump.name=Shimmering Silk Lump
 item.shimmeringString.name=Shimmering String
@@ -27,22 +28,36 @@ item.compressedSilkCube.name=Compressed Silk Cube
 
 item.absorbingMatrixFrame.name=Absorbing Matrix Frame
 item.shimmeringInfusedAbsorbingMatrixFrame.name=Shimmering Infused Absorbing Matrix Frame
+item.opticConcentratingAbsorbingMatrixFrame.name=Optic Concentrating Absorbing Matrix Frame
+item.singularAbsorbingMatrixFrame.name=Singular Absorbing Matrix Frame
+
 item.absorbingMatrixShadow.name=Absorbing Matrix Shadow
 item.absorbingMatrixSulfuric.name=Absorbing Matrix Sulfuric
 item.absorbingMatrixShimmering.name=Absorbing Matrix Shimmering
+item.absorbingMatrixUranic.name=Absorbing Uranic Shimmering
+item.absorbingMatrixDiamond.name=Absorbing Diamond Shimmering
+item.absorbingMatrixPlatinum.name=Absorbing Platinum Shimmering
 
 item.crystallizedScentedRipeGear.name=Crystallized Scented Ripe Gear
 item.crystallizedScentedShadowGear.name=Crystallized Scented Shadow Gear
 item.crystallizedScentedSulfuricGear.name=Crystallized Scented Sulfuric Gear
 item.crystallizedScentedShimmeringGear.name=Crystallized Scented Shimmering Gear
+item.crystallizedScentedUranicGear.name=Crystallized Scented Uranic Gear
+item.crystallizedScentedDiamondGear.name=Crystallized Scented Diamond Gear
+item.crystallizedScentedPlatinumGear.name=Crystallized Scented Platinum Gear
 
 item.quantumCircuit.name=Quantum Circuit
 item.computationArrayCircuit.name=Computation Array Circuit
 item.optimizedComputationArrayCircuit.name=Optimized Computation Array Circuit
+item.opticalComputationArrayCircuit.name=Optical Computation Array Circuit
+item.singularComputationProcessor.name=Singular Computation Processor
 
 item.shadowInfusedMachineCasing.name=Shadow Infused Machine Casing
 item.sulfuricInfusedMachineCasing.name=Sulfuric Infused Machine Casing
 item.shimmeringInfusedMachineCasing.name=Shimmering Infused Machine Casing
+item.uranicInfusedMachineCasing.name=Uranic Infused Machine Casing
+item.diamondInfusedMachineCasing.name=Diamond Infused Machine Casing
+item.platinumInfusedMachineCasing.name=Platinum Infused Machine Casing
 
 item.concentratedSulfuricShardExtract.name=Concentrated Sulfuric Shard Extract
 item.concentratedShimmeringShardExtract.name=Concentrated Shimmering Shard Extract
@@ -55,10 +70,19 @@ item.crushedShimmeringShard.name=Crushed Shimmering Shard
 item.crushedUranicShard.name=Crushed Uranic Shard
 item.crushedDiamondShard.name=Crushed Diamond Shard
 item.crushedPlatinumShard.name=Crushed Platinum Shard
+item.opticalCrystalDust.name=Optical Crystal Dust
 
+item.opticalCrystal.name=Optical Crystal
 item.sulfuricCrystal.name=Sulfuric Crystal
 item.shimmeringCrystal.name=Shimmering Crystal
+item.uranicCrystal.name=Uranic Crystal
+item.diamondCrystal.name=Diamond Crystal
+item.platinumCrystal.name=Platinum Crystal
 
+item.diamondInfusedPlate.name=Diamond Infused Plate
+item.diamondInfusedDensePlate.name=Diamond Infused Dense Plate
+item.platinumInfusedPlate.name=Platinum Infused Plate
+item.platinumInfusedDensePlate.name=Platinum Infused Dense Plate
 item.irradiantIridium.name=Irradiant Iridium
 item.enrichedIrradiantIridiumAlloy.name=Enriched Irradiant Iridium Alloy
 item.denseEnrichedIrradiantIridiumAlloy.name=Dense Enriched Irradiant Iridium Alloy

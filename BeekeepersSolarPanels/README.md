@@ -26,6 +26,9 @@ Beekeepers Solar Panels - Mod which add a bunch of new solar panels, that genera
   - Singular Beekeepers Solar Panel
 - 83 intermediate resources
 
+<p align="center">
+  <img width="657" height="386" src="https://github.com/Maksasj/RadioboosMinecraftMods/blob/master/BeekeepersSolarPanels/docs/beekeepersSolarPanelsItems.png">
+</p>
 
 | Solar Panel | Capacity | Day Production | Night Production | Max Drain |
 | ----------------------------------| ----------------- | ------------- | -------------- | ------------ |

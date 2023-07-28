@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="960" height="496" src="https://github.com/Maksasj/RadioboosMinecraftMods/blob/master/BeekeepersSolarPanels/docs/beekeepersSolarPanels.png">
+  <img width="480" height="248" src="https://github.com/Maksasj/RadioboosMinecraftMods/blob/master/BeekeepersSolarPanels/docs/beekeepersSolarPanels.png">
 </p>
 
 

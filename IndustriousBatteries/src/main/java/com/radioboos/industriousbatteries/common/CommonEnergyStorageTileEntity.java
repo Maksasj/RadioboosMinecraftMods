@@ -6,56 +6,108 @@ import ic2.api.energy.event.EnergyTileUnloadEvent;
 import ic2.api.energy.tile.IEnergySink;
 import ic2.api.energy.tile.IEnergySource;
 import ic2.api.info.Info;
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.tile.IEnergyStorage;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
 public class CommonEnergyStorageTileEntity extends TileEntity implements IInventory,IEnergySink, IEnergySource, INetworkClientTileEntityEventListener, IEnergyStorage {
     public double storedEnergy;
     public double maxStoredEnergy;
 
+    public double chargePendingEnergy;
+    public double dischargePendingEnergy;
 
-    // public boolean hasRedstone = false;
-    // public byte redstoneMode = 0;
-    // public static byte redstoneModes = 7;
-    // private boolean isEmittingRedstone = false;
-    // private int redstoneUpdateInhibit = 5;
+    public ItemStack inventory[];
+
     public boolean addedToEnergyNet;
 
-    public CommonEnergyStorageTileEntity(int tier1, int output1, int maxStorage1) {
+    public CommonEnergyStorageTileEntity() {
+        super();
+
         this.storedEnergy = 0.0;
         this.maxStoredEnergy = 1000000000.0;
+
+        this.chargePendingEnergy = 0.0;
+        this.dischargePendingEnergy = 0.0;
+
+        this.inventory = new ItemStack[20];
 
         this.addedToEnergyNet = false;
     }
     /*
+    double energyToTransfer = Math.min(energyStored, energyMaxDrain);
+    double energyTransferred = ElectricItem.manager.charge(item, energyToTransfer, getSourceTier(), false, false);
+    energyStored -= energyTransferred;
+    */
 
-     double energyToTransfer = Math.min(energyStored, energyMaxDrain);
-        double energyTransferred = ElectricItem.manager.charge(item, energyToTransfer, getSourceTier(), false, false);
-        energyStored -= energyTransferred;
-        
-     */
 
     // double charge(ItemStack stack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate);
     // double discharge(ItemStack stack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate);
 
-    public void readFromNBT(NBTTagCompound nbttagcompound) {
-        // super.readFromNBT(nbttagcompound);
-        // this.energy = Util.limit(nbttagcompound.getDouble("energy"), 0.0, (double)this.maxStorage + EnergyNet.instance.getPowerFromTier(this.tier));
-        // this.redstoneMode = nbttagcompound.getByte("redstoneMode");
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound NBT = new NBTTagCompound();
+        this.writeToNBT(NBT);
+        S35PacketUpdateTileEntity pack = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, NBT);
+        return pack;
     }
 
-    public void writeToNBT(NBTTagCompound nbttagcompound) {
-        // super.writeToNBT(nbttagcompound);
-        // nbttagcompound.setDouble("energy", this.energy);
-        // nbttagcompound.setBoolean("active", this.getActive());
-        // nbttagcompound.setByte("redstoneMode", this.redstoneMode);
+    @Override
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
+        this.readFromNBT(pkt.func_148857_g());
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+
+        NBTTagList tagList = new NBTTagList();
+
+        for (int slot = 0; slot < inventory.length; slot++) {
+            if (inventory[slot] != null) {
+                NBTTagCompound itemCompound = new NBTTagCompound();
+
+                itemCompound.setByte("Slot", (byte) slot);
+
+                inventory[slot].writeToNBT(itemCompound);
+
+                tagList.appendTag(itemCompound);
+            }
+        }
+
+        compound.setTag("Inventory", tagList);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+
+        NBTTagList tagList = compound.getTagList("Inventory", Constants.NBT.TAG_COMPOUND);
+
+        inventory = new ItemStack[getSizeInventory()];
+
+        for (int itemCount = 0; itemCount < tagList.tagCount(); itemCount++)  {
+            NBTTagCompound itemCompound = tagList.getCompoundTagAt(itemCount);
+            int slot = itemCompound.getByte("Slot") & 0xff;
+
+            if (slot >= 0 && slot < inventory.length) {
+                inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
+            }
+        }
     }
 
     @Override
@@ -63,9 +115,35 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
         if (!addedToEnergyNet)
             onLoaded();
 
-        System.out.println(storedEnergy + " " + maxStoredEnergy);
 
         worldObj.markAndNotifyBlock(xCoord, yCoord, zCoord, worldObj.getChunkFromBlockCoords(xCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), 2);
+
+        storedEnergy = 0;
+        maxStoredEnergy = 0;
+
+        for(int i = 0; i < 16; ++i) {
+            if(inventory[i] == null)
+                continue;
+
+            // ElectricItem.manager.charge(item, energyToTransfer, getSourceTier(), false, false);
+            storedEnergy += ElectricItem.manager.getCharge(inventory[i]);
+            maxStoredEnergy += ((IElectricItem) inventory[i].getItem()).getMaxCharge(inventory[i]);
+
+            if(chargePendingEnergy > 0.0) {
+                double energyTransferred = ElectricItem.manager.charge(inventory[i], chargePendingEnergy, getSourceTier(), true, false);
+                chargePendingEnergy -= energyTransferred;
+            }
+
+            if(dischargePendingEnergy > 0.0) {
+                double energyTransferred = ElectricItem.manager.discharge(inventory[i], dischargePendingEnergy, getSourceTier(), true, false, false);
+                chargePendingEnergy -= energyTransferred;
+            }
+        }
+
+        System.out.println(chargePendingEnergy + " " + dischargePendingEnergy);
+
+        chargePendingEnergy = 0;
+        dischargePendingEnergy = 0;
 
         markDirty();
     }
@@ -107,13 +185,11 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     public double getOfferedEnergy() {
-        // return !(this.energy >= (double)this.output) || this.redstoneMode == 5 && this.hasRedstone || this.redstoneMode == 6 && this.hasRedstone && !(this.energy >= (double)this.maxStorage) ? 0.0 : Math.min(this.energy, (double)this.output);
-
         return storedEnergy;
     }
 
     public void drawEnergy(double amount) {
-        this.storedEnergy -= amount;
+        dischargePendingEnergy = amount;
     }
 
     public double getDemandedEnergy() {
@@ -121,12 +197,10 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
-        if (this.storedEnergy >= (double)this.maxStoredEnergy) {
-            return amount;
-        } else {
-            this.storedEnergy += amount;
-            return 0.0;
-        }
+        // double toReturn = chargePendingEnergy;
+        chargePendingEnergy = amount;
+
+        return amount;
     }
 
     public int getSourceTier() {
@@ -141,9 +215,6 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     // public GuiScreen getGui(EntityPlayer entityPlayer, boolean isAdmin) {
     //     return new GuiElectricBlock(new ContainerElectricBlock(entityPlayer, this));
     // }
-
-    public void onGuiClosed(EntityPlayer entityPlayer) {
-    }
 
     public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
         return this.getFacing() != side;
@@ -203,12 +274,12 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
         return (int)this.storedEnergy;
     }
 
-    public void setStored(int energy1) {
-        this.storedEnergy = (double)energy1;
+    public void setStored(int amount) {
+        this.storedEnergy = (double)amount;
     }
 
     public int addEnergy(int amount) {
-        this.storedEnergy += (double)amount;
+        chargePendingEnergy = amount;
         return amount;
     }
 
@@ -218,47 +289,73 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
 
     @Override
     public int getSizeInventory() {
-        return 0;
+        return inventory.length;
     }
 
     @Override
-    public ItemStack getStackInSlot(int p_70301_1_) {
-        return null;
+    public ItemStack getStackInSlot(int index) {
+        return inventory[index];
     }
 
     @Override
-    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
-        return null;
+    public ItemStack decrStackSize(int index, int count) {
+        if(inventory[index] == null) {
+            return null;
+        }
+
+        if(inventory[index].stackSize <= count) {
+            ItemStack itemStack = inventory[index];
+            inventory[index] = null;
+            return itemStack;
+        }
+
+        ItemStack itemStack1 = inventory[index].splitStack(count);
+
+        if (inventory[index].stackSize == 0) {
+            inventory[index] = null;
+        }
+
+        return itemStack1;
     }
 
     @Override
-    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
-        return null;
+    public ItemStack getStackInSlotOnClosing(int index) {
+        if (inventory[index] == null) {
+            return null;
+        }
+
+        ItemStack stack = inventory[index];
+        inventory[index] = null;
+        return stack;
     }
 
     @Override
-    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        inventory[index] = stack;
 
+        if(stack != null && stack.stackSize > getInventoryStackLimit()) {
+            stack.stackSize = getInventoryStackLimit();
+        }
     }
 
     @Override
     public String getInventoryName() {
-        return null;
+        return "Common Energy storage tile entity";
     }
 
     @Override
     public boolean hasCustomInventoryName() {
-        return false;
+        return true;
     }
 
     @Override
     public int getInventoryStackLimit() {
-        return 0;
+        return 1;
     }
 
     @Override
     public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
-        return false;
+        return true;
     }
 
     @Override
@@ -272,7 +369,11 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     @Override
-    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+        if (stack.getItem() instanceof IElectricItem) {
+            return true;
+        }
+
         return false;
     }
 }

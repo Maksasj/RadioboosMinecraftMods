@@ -40,9 +40,13 @@ public class CommonEnergyStorageGui extends GuiContainer {
         if(entity == null)
             return;
 
+        double energyStored = entity.getStored();
+        double energyCapacity = entity.getCapacity();
+
+        mc.fontRenderer.drawString(String.format("Storage: %d/%d", (int) energyStored, (int) energyCapacity), xCenter + 41, yCenter + 20, 0x373737);
+        mc.fontRenderer.drawString(String.format("Max Output: %d EU/t", (int) energyCapacity), xCenter + 41, yCenter + 30, 0x373737);
+
         /*
-        double energyStored = entity.getEnergyStored();
-        double energyCapacity = entity.getEnergyCapacity();
         double maxDrain = entity.getEnergyMaxDrain();
         double energyGeneration = entity.getEnergyProduction();
 

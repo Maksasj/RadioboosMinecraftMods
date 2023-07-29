@@ -12,10 +12,12 @@ public class CommonEnergyStorageContainer extends Container {
     public CommonEnergyStorageContainer(IInventory playerInventory, CommonEnergyStorageTileEntity panel) {
         this.panel = panel;
 
-        addSlotToContainer(new Slot(panel, 0, 8, 57));
-        addSlotToContainer(new Slot(panel, 1, 26, 57));
-        addSlotToContainer(new Slot(panel, 2, 44, 57));
-        addSlotToContainer(new Slot(panel, 3, 62, 57));
+        for(int i = 0; i < 16; ++i) {
+            int row = i % 4;
+            int collum = i / 4;
+
+            addSlotToContainer(new Slot(panel, i, 8 + 18 * row, 3 + 18 * collum));
+        }
 
         for (int inventoryRow = 0; inventoryRow < 3; inventoryRow++) {
             for (int inventoryColumn = 0; inventoryColumn < 9; inventoryColumn++) {

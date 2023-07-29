@@ -100,7 +100,7 @@ public class CommonBlock extends BlockContainer {
     }
 
     public TileEntity getTileEntity() {
-        return new CommonEnergyStorageTileEntity(6, 5, 15);
+        return new CommonEnergyStorageTileEntity();
     }
 
     @Override

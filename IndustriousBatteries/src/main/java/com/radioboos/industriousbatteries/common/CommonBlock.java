@@ -1,5 +1,6 @@
 package com.radioboos.industriousbatteries.common;
 
+import com.radioboos.industriousbatteries.IndustriousBatteries;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
@@ -29,6 +30,11 @@ public class CommonBlock extends BlockContainer {
         entity = null;
     }
 
+
+    public int getGuiID() {
+        return CommonEnergyStorageGui.GUI_ID;
+    }
+
     @Override
     public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9){
         if (player.isSneaking()) {
@@ -39,7 +45,7 @@ public class CommonBlock extends BlockContainer {
             return true;
         }
 
-        // player.openGui(BeekeepersSolarPanels.instance, this.getGuiID(), world, x, y, z);
+        player.openGui(IndustriousBatteries.instance, this.getGuiID(), world, x, y, z);
 
         return true;
     }
@@ -94,7 +100,7 @@ public class CommonBlock extends BlockContainer {
     }
 
     public TileEntity getTileEntity() {
-        return new CommonEnergyStorage(6, 5, 15);
+        return new CommonEnergyStorageTileEntity(6, 5, 15);
     }
 
     @Override

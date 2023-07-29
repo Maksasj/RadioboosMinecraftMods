@@ -1,6 +1,7 @@
 package com.radioboos.industriousbatteries;
 
 import com.radioboos.industriousbatteries.common.CommonProxy;
+import com.radioboos.industriousbatteries.gui.GuiHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLLoadEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
@@ -8,6 +9,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = IndustriousBatteries.MODID, version = IndustriousBatteries.VERSION)
 public class IndustriousBatteries
@@ -30,6 +32,8 @@ public class IndustriousBatteries
     @EventHandler
     public void preinit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
+
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
     }
 
     @EventHandler

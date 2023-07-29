@@ -9,13 +9,14 @@ import ic2.api.info.Info;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.tile.IEnergyStorage;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class CommonEnergyStorage extends TileEntity implements IEnergySink, IEnergySource, INetworkClientTileEntityEventListener, IEnergyStorage {
+public class CommonEnergyStorageTileEntity extends TileEntity implements IInventory,IEnergySink, IEnergySource, INetworkClientTileEntityEventListener, IEnergyStorage {
     public double storedEnergy;
     public double maxStoredEnergy;
 
@@ -27,12 +28,22 @@ public class CommonEnergyStorage extends TileEntity implements IEnergySink, IEne
     // private int redstoneUpdateInhibit = 5;
     public boolean addedToEnergyNet;
 
-    public CommonEnergyStorage(int tier1, int output1, int maxStorage1) {
+    public CommonEnergyStorageTileEntity(int tier1, int output1, int maxStorage1) {
         this.storedEnergy = 0.0;
         this.maxStoredEnergy = 1000000000.0;
 
         this.addedToEnergyNet = false;
     }
+    /*
+
+     double energyToTransfer = Math.min(energyStored, energyMaxDrain);
+        double energyTransferred = ElectricItem.manager.charge(item, energyToTransfer, getSourceTier(), false, false);
+        energyStored -= energyTransferred;
+        
+     */
+
+    // double charge(ItemStack stack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate);
+    // double discharge(ItemStack stack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate);
 
     public void readFromNBT(NBTTagCompound nbttagcompound) {
         // super.readFromNBT(nbttagcompound);
@@ -203,6 +214,66 @@ public class CommonEnergyStorage extends TileEntity implements IEnergySink, IEne
 
     public boolean isTeleporterCompatible(ForgeDirection side) {
         return true;
+    }
+
+    @Override
+    public int getSizeInventory() {
+        return 0;
+    }
+
+    @Override
+    public ItemStack getStackInSlot(int p_70301_1_) {
+        return null;
+    }
+
+    @Override
+    public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+        return null;
+    }
+
+    @Override
+    public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+        return null;
+    }
+
+    @Override
+    public void setInventorySlotContents(int p_70299_1_, ItemStack p_70299_2_) {
+
+    }
+
+    @Override
+    public String getInventoryName() {
+        return null;
+    }
+
+    @Override
+    public boolean hasCustomInventoryName() {
+        return false;
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 0;
+    }
+
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+        return false;
+    }
+
+    @Override
+    public void openInventory() {
+
+    }
+
+    @Override
+    public void closeInventory() {
+
+    }
+
+    @Override
+    public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+        return false;
     }
 }
 

@@ -11,9 +11,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import org.lwjgl.Sys;
 
 public class CommonBlock extends BlockContainer {
     private String blockName;
+    private TileEntity entity;
 
     public CommonBlock(String name) {
         super(Material.rock);
@@ -24,7 +26,7 @@ public class CommonBlock extends BlockContainer {
 
         // setCreativeTab(CreativeTabRegister.BEEKEEPERS_SOLAR_PANELS_CREATIVE_TAB);
 
-        // entity = null;
+        entity = null;
     }
 
     @Override
@@ -91,14 +93,14 @@ public class CommonBlock extends BlockContainer {
         return textures[1];
     }
 
-    // public CommonSolarPanelTileEntity getTileEntity() {
-    //     return null;
-    // }
+    public TileEntity getTileEntity() {
+        return new CommonEnergyStorage(6, 5, 15);
+    }
 
     @Override
     public TileEntity createNewTileEntity(World world, int metadata) {
-        // entity = this.getTileEntity();
-        // return entity;
-        return null;
+        System.out.println("Placed storage");
+        entity = this.getTileEntity();
+        return entity;
     }
 }

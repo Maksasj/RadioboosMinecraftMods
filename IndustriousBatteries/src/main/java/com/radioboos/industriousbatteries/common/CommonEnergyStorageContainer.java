@@ -16,7 +16,7 @@ public class CommonEnergyStorageContainer extends Container {
             int row = i % 4;
             int collum = i / 4;
 
-            addSlotToContainer(new Slot(panel, i, 8 + 18 * row, 3 + 18 * collum));
+            addSlotToContainer(new Slot(panel, i, -1 + 18 * row, 3 + 18 * collum));
         }
 
         for (int inventoryRow = 0; inventoryRow < 3; inventoryRow++) {

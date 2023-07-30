@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.Sys;
 
 public class CommonBlock extends BlockContainer {
@@ -90,10 +91,12 @@ public class CommonBlock extends BlockContainer {
 
     @Override
     public IIcon getIcon(int i, int j) {
-        if(i == 1)
+        ForgeDirection facingDirection = ForgeDirection.values()[i];
+
+        if(facingDirection == ForgeDirection.UP)
             return textures[0];
 
-        if(i == 0)
+        if(facingDirection == ForgeDirection.DOWN)
             return textures[2];
 
         return textures[1];

@@ -23,39 +23,32 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class CommonEnergyStorageTileEntity extends TileEntity implements IInventory,IEnergySink, IEnergySource, INetworkClientTileEntityEventListener, IEnergyStorage {
+public class CommonEnergyStorageTileEntity extends TileEntity implements IInventory, IEnergySink, IEnergySource, IEnergyStorage, INetworkClientTileEntityEventListener {
     public double storedEnergy;
     public double maxStoredEnergy;
+    public double transferLimitEnergy;
 
     public double chargePendingEnergy;
     public double dischargePendingEnergy;
 
+    public ForgeDirection facingDirection;
     public ItemStack inventory[];
-
     public boolean addedToEnergyNet;
 
     public CommonEnergyStorageTileEntity() {
         super();
 
         this.storedEnergy = 0.0;
-        this.maxStoredEnergy = 1000000000.0;
+        this.maxStoredEnergy = 0.0;
+        this.transferLimitEnergy = 0.0;
 
         this.chargePendingEnergy = 0.0;
         this.dischargePendingEnergy = 0.0;
 
+        this.facingDirection = ForgeDirection.UP;
         this.inventory = new ItemStack[20];
-
         this.addedToEnergyNet = false;
     }
-    /*
-    double energyToTransfer = Math.min(energyStored, energyMaxDrain);
-    double energyTransferred = ElectricItem.manager.charge(item, energyToTransfer, getSourceTier(), false, false);
-    energyStored -= energyTransferred;
-    */
-
-
-    // double charge(ItemStack stack, double amount, int tier, boolean ignoreTransferLimit, boolean simulate);
-    // double discharge(ItemStack stack, double amount, int tier, boolean ignoreTransferLimit, boolean externally, boolean simulate);
 
     @Override
     public Packet getDescriptionPacket() {
@@ -120,6 +113,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
 
         storedEnergy = 0;
         maxStoredEnergy = 0;
+        transferLimitEnergy = 0;
 
         for(int i = 0; i < 16; ++i) {
             if(inventory[i] == null)
@@ -128,19 +122,18 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
             // ElectricItem.manager.charge(item, energyToTransfer, getSourceTier(), false, false);
             storedEnergy += ElectricItem.manager.getCharge(inventory[i]);
             maxStoredEnergy += ((IElectricItem) inventory[i].getItem()).getMaxCharge(inventory[i]);
+            transferLimitEnergy += ((IElectricItem) inventory[i].getItem()).getTransferLimit(inventory[i]);
 
             if(chargePendingEnergy > 0.0) {
-                double energyTransferred = ElectricItem.manager.charge(inventory[i], chargePendingEnergy, getSourceTier(), true, false);
+                double energyTransferred = ElectricItem.manager.charge(inventory[i], chargePendingEnergy, getSourceTier(), false, false);
                 chargePendingEnergy -= energyTransferred;
             }
 
             if(dischargePendingEnergy > 0.0) {
-                double energyTransferred = ElectricItem.manager.discharge(inventory[i], dischargePendingEnergy, getSourceTier(), true, false, false);
-                chargePendingEnergy -= energyTransferred;
+                double energyTransferred = ElectricItem.manager.discharge(inventory[i], dischargePendingEnergy, getSourceTier(), false, false, false);
+                dischargePendingEnergy -= energyTransferred;
             }
         }
-
-        System.out.println(chargePendingEnergy + " " + dischargePendingEnergy);
 
         chargePendingEnergy = 0;
         dischargePendingEnergy = 0;
@@ -161,15 +154,15 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-        if(direction != ForgeDirection.UP) {
-            return false;
+        if(direction != facingDirection) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
-        if(direction != ForgeDirection.UP) {
+        if(direction == facingDirection) {
             return true;
         }
 
@@ -181,11 +174,15 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     private int getFacing() {
-        return 0;
+        return facingDirection.ordinal();
     }
 
+
+
+
+
     public double getOfferedEnergy() {
-        return storedEnergy;
+        return Math.min(storedEnergy, transferLimitEnergy);
     }
 
     public void drawEnergy(double amount) {
@@ -193,14 +190,48 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     public double getDemandedEnergy() {
-        return (double)this.maxStoredEnergy - this.storedEnergy;
+        return this.maxStoredEnergy - this.storedEnergy;
     }
 
     public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
-        // double toReturn = chargePendingEnergy;
-        chargePendingEnergy = amount;
+        double delta = maxStoredEnergy - storedEnergy;
+        chargePendingEnergy = Math.min(amount, Math.min(transferLimitEnergy, delta));
+        return amount - chargePendingEnergy;
+    }
 
-        return amount;
+    public int getStored() {
+        return (int)this.storedEnergy;
+    }
+
+    public int getCapacity() {
+        return (int) this.maxStoredEnergy;
+    }
+
+    public int getOutput() {
+        return (int) Math.min(this.storedEnergy, this.transferLimitEnergy);
+    }
+
+    public double getOutputEnergyUnitsPerTick() {
+        return (int) this.transferLimitEnergy;
+    }
+
+    public void setStored(int amount) {
+        this.storedEnergy = (double)amount;
+    }
+
+    public int addEnergy(int amount) {
+        double delta = maxStoredEnergy - storedEnergy;
+        chargePendingEnergy = Math.min(amount, Math.min(transferLimitEnergy, delta));
+        return (int) (amount - chargePendingEnergy);
+    }
+
+
+
+
+
+
+    public boolean isTeleporterCompatible(ForgeDirection side) {
+        return true;
     }
 
     public int getSourceTier() {
@@ -210,12 +241,6 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     public int getSinkTier() {
         return 6;
     }
-
-    // @SideOnly(Side.CLIENT)
-    // public GuiScreen getGui(EntityPlayer entityPlayer, boolean isAdmin) {
-    //     return new GuiElectricBlock(new ContainerElectricBlock(entityPlayer, this));
-    // }
-
     public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
         return this.getFacing() != side;
     }
@@ -231,7 +256,6 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
             this.addedToEnergyNet = true;
         }
     }
-
     public void onNetworkEvent(EntityPlayer player, int event) {
         // ++this.redstoneMode;
         // if (this.redstoneMode >= redstoneModes) {
@@ -240,13 +264,6 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
 
         // IC2.platform.messagePlayer(player, this.getredstoneMode(), new Object[0]);
     }
-
-    /*
-    public String getredstoneMode() {
-        return this.redstoneMode <= 6 && this.redstoneMode >= 0 ? StatCollector.translateToLocal("ic2.EUStorage.gui.mod.redstone" + this.redstoneMode) : "";
-    }
-    */
-
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
         // ItemStack ret = super.getWrenchDrop(entityPlayer);
         // float energyRetainedInStorageBlockDrops = ConfigUtil.getFloat(MainConfig.get(), "balance/energyRetainedInStorageBlockDrops");
@@ -256,35 +273,6 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
         // }
 
         return null;
-    }
-
-    public int getStored() {
-        return (int)this.storedEnergy;
-    }
-
-    public int getCapacity() {
-        return (int) this.maxStoredEnergy;
-    }
-
-    public int getOutput() {
-        return (int)this.storedEnergy;
-    }
-
-    public double getOutputEnergyUnitsPerTick() {
-        return (int)this.storedEnergy;
-    }
-
-    public void setStored(int amount) {
-        this.storedEnergy = (double)amount;
-    }
-
-    public int addEnergy(int amount) {
-        chargePendingEnergy = amount;
-        return amount;
-    }
-
-    public boolean isTeleporterCompatible(ForgeDirection side) {
-        return true;
     }
 
     @Override

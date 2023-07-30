@@ -42,35 +42,21 @@ public class CommonEnergyStorageGui extends GuiContainer {
 
         double energyStored = entity.getStored();
         double energyCapacity = entity.getCapacity();
-
-        mc.fontRenderer.drawString(String.format("Storage: %d/%d", (int) energyStored, (int) energyCapacity), xCenter + 41, yCenter + 20, 0x373737);
-        mc.fontRenderer.drawString(String.format("Max Output: %d EU/t", (int) energyCapacity), xCenter + 41, yCenter + 30, 0x373737);
-
-        /*
-        double maxDrain = entity.getEnergyMaxDrain();
-        double energyGeneration = entity.getEnergyProduction();
+        int energyTransferLimit = entity.getOutput();
 
         double energyBufferFill = energyStored / energyCapacity;
 
-        drawTexturedModalRect(xCenter + 10, yCenter + 22, 195, 0, (int) (24 * energyBufferFill), 14);
-
-        if(entity.isSkyIsVisible()) {
-            if(entity.isSunIsVisible()) {
-                drawTexturedModalRect(xCenter + 15, yCenter + 39, 195, 15, 14, 14);
-            } else {
-                drawTexturedModalRect(xCenter + 15, yCenter + 39, 210, 15, 14, 14);
-            }
+        if(energyCapacity > 0) {
+            drawTexturedModalRect(xCenter + 85, yCenter + 59, 195, 0, (int) (60 * energyBufferFill), 14);
         }
 
-        String inventoryName = entity.getInventoryName();
+        String energyStoredStr = Utils.euEnergyToString(energyStored);
+        String energyCapacityStr = Utils.euEnergyToString(energyCapacity);
+        String energyTransferLimitStr = Utils.euEnergyToString(energyTransferLimit);
 
-        int inventoryNameTextPadding = (180 - mc.fontRenderer.getStringWidth(inventoryName)) / 2;
-
-        mc.fontRenderer.drawStringWithShadow(inventoryName, xCenter + inventoryNameTextPadding, yCenter + 5, 0x807903);
-
-        mc.fontRenderer.drawString(String.format("Storage: %d/%d", (int) energyStored, (int) energyCapacity), xCenter + 41, yCenter + 20, 0x373737);
-        mc.fontRenderer.drawString(String.format("Max Output: %d EU/t", (int) maxDrain), xCenter + 41, yCenter + 30, 0x373737);
-        mc.fontRenderer.drawString(String.format("Generating: %d EU/t", (int) energyGeneration), xCenter + 41, yCenter + 40, 0x373737);
-        */
+        mc.fontRenderer.drawString("Storage:", xCenter + 71, yCenter + 5, 0x373737);
+        mc.fontRenderer.drawString(String.format("%s/%s EU", energyStoredStr, energyCapacityStr), xCenter + 71, yCenter + 15, 0x373737);
+        mc.fontRenderer.drawString("Limit:", xCenter + 71, yCenter + 25, 0x373737);
+        mc.fontRenderer.drawString(String.format("%s EU/t", energyTransferLimitStr), xCenter + 71, yCenter + 35, 0x373737);
     }
 }

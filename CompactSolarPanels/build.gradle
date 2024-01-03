@@ -26,17 +26,6 @@ minecraft {
     runDir = "eclipse"
 }
 
-repositories {
-    maven {
-        name = "ic2"
-        url = "http://maven.ic2.player.to/"
-    }
-}
-
-dependencies {
-    compile 'net.industrial-craft:industrialcraft-2:2.2.828-experimental:api'
-}
-
 processResources
 {
     // this will ensure that this task is redone when the versions change.

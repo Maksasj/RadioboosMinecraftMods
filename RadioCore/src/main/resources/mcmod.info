@@ -1,0 +1,16 @@
+[
+{
+  "modid": "radiocore",
+  "name": "RadioCore",
+  "description": "Core mod for all radioboos mods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Radioboos"],
+  "credits": "me, lol",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -30,6 +30,14 @@ public class ExampleMod
         GameRegistry.registerItem(new CommonItem("diode_1"), "diode_1");
         GameRegistry.registerItem(new CommonItem("iductor_0"), "iductor_0");
         GameRegistry.registerItem(new CommonItem("transistor_0"), "transistor_0");
+        GameRegistry.registerItem(new CommonItem("chip_0"), "chip_0");
+        GameRegistry.registerItem(new CommonItem("chip_1"), "chip_1");
+        GameRegistry.registerItem(new CommonItem("board_0"), "board_0");
+        GameRegistry.registerItem(new CommonItem("board_1"), "board_1");
+        GameRegistry.registerItem(new CommonItem("board_2"), "board_2");
+        GameRegistry.registerItem(new CommonItem("board_3"), "board_3");
+        GameRegistry.registerItem(new CommonItem("raw_board_0"), "raw_board_0");
+        GameRegistry.registerItem(new CommonItem("raw_board_1"), "raw_board_1");
 
         CreativeTabRegister.register();
     }

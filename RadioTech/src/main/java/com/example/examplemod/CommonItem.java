@@ -1,5 +1,6 @@
 package com.example.examplemod;
 
+import com.example.examplemod.creative.tabs.CreativeTabRegister;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -11,7 +12,7 @@ public class CommonItem extends Item {
         this.name = name;
 
         setUnlocalizedName(name);
-        setCreativeTab(CreativeTabs.tabCombat);
+        setCreativeTab(CreativeTabRegister.COMPACT_SOLAR_PANELS_CREATIVE_TAB);
     }
 
     @Override

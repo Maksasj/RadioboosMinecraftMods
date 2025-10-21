@@ -1,30 +1,22 @@
-package com.example.examplemod;
+package com.radioboos.adinfinitum;
 
-import com.example.examplemod.creative.tabs.CreativeTabRegister;
+import com.radioboos.adinfinitum.creative.tabs.CreativeTabRegister;
 import cpw.mods.fml.common.registry.GameRegistry;
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import net.minecraft.item.Item;
 
 @Mod(modid = ExampleMod.MODID, version = ExampleMod.VERSION)
 public class ExampleMod
 {
-    public static final String MODID = "examplemod";
+    public static final String MODID = "ad-infinitum";
     public static final String VERSION = "1.0";
 
     public static CommonItem silicon_chip_0;
 
-
     @EventHandler
     public void init(FMLInitializationEvent event) {
         silicon_chip_0 = new CommonItem("silicon_chip_0");
-
-        CreativeTabRegister.register();
-
         GameRegistry.registerItem(silicon_chip_0, "silicon_chip_0");
         GameRegistry.registerItem(new CommonItem("raw_silicon_wafer_0"), "raw_silicon_wafer_0");
         GameRegistry.registerItem(new CommonItem("raw_silicon_wafer_1"), "raw_silicon_wafer_1");
@@ -38,5 +30,7 @@ public class ExampleMod
         GameRegistry.registerItem(new CommonItem("diode_1"), "diode_1");
         GameRegistry.registerItem(new CommonItem("iductor_0"), "iductor_0");
         GameRegistry.registerItem(new CommonItem("transistor_0"), "transistor_0");
+
+        CreativeTabRegister.register();
     }
 }

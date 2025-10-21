@@ -1,8 +1,7 @@
-package com.example.examplemod;
+package com.radioboos.adinfinitum;
 
-import com.example.examplemod.creative.tabs.CreativeTabRegister;
+import com.radioboos.adinfinitum.creative.tabs.CreativeTabRegister;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 public class CommonItem extends Item {
@@ -17,6 +16,6 @@ public class CommonItem extends Item {
 
     @Override
     public void registerIcons(IIconRegister iconRegister) {
-        this.itemIcon = iconRegister.registerIcon("examplemod:" + name);
+        this.itemIcon = iconRegister.registerIcon("adinfinitum:" + name);
     }
 }

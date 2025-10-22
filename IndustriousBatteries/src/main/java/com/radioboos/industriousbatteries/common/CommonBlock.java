@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.Sys;
 
 public class CommonBlock extends BlockContainer {
-    private String blockName;
+    private final String blockName;
     private TileEntity entity;
 
     public CommonBlock(String name) {
@@ -30,7 +30,6 @@ public class CommonBlock extends BlockContainer {
 
         entity = null;
     }
-
 
     public int getGuiID() {
         return CommonEnergyStorageGui.GUI_ID;

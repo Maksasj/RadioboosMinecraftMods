@@ -32,7 +32,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     public double dischargePendingEnergy;
 
     public ForgeDirection facingDirection;
-    public ItemStack inventory[];
+    public ItemStack[] inventory;
     public boolean addedToEnergyNet;
 
     public CommonEnergyStorageTileEntity() {
@@ -54,8 +54,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     public Packet getDescriptionPacket() {
         NBTTagCompound NBT = new NBTTagCompound();
         this.writeToNBT(NBT);
-        S35PacketUpdateTileEntity pack = new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, NBT);
-        return pack;
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, NBT);
     }
 
     @Override
@@ -108,7 +107,6 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
         if (!addedToEnergyNet)
             onLoaded();
 
-
         worldObj.markAndNotifyBlock(xCoord, yCoord, zCoord, worldObj.getChunkFromBlockCoords(xCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), worldObj.getBlock(xCoord, yCoord,zCoord), 2);
 
         storedEnergy = 0;
@@ -142,9 +140,8 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     public void onLoaded() {
-        if (this.addedToEnergyNet || FMLCommonHandler.instance().getEffectiveSide().isClient() || !Info.isIc2Available()) {
+        if (this.addedToEnergyNet || FMLCommonHandler.instance().getEffectiveSide().isClient() || !Info.isIc2Available())
             return;
-        }
 
         worldObj = getWorldObj();
 
@@ -154,19 +151,11 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-        if(direction != facingDirection) {
-            return true;
-        }
-
-        return false;
+        return direction != facingDirection;
     }
 
     public boolean emitsEnergyTo(TileEntity receiver, ForgeDirection direction) {
-        if(direction == facingDirection) {
-            return true;
-        }
-
-        return false;
+        return direction == facingDirection;
     }
 
     public boolean facingMatchesDirection(ForgeDirection direction) {
@@ -176,10 +165,6 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     private int getFacing() {
         return facingDirection.ordinal();
     }
-
-
-
-
 
     public double getOfferedEnergy() {
         return Math.min(storedEnergy, transferLimitEnergy);
@@ -225,11 +210,6 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
         return (int) (amount - chargePendingEnergy);
     }
 
-
-
-
-
-
     public boolean isTeleporterCompatible(ForgeDirection side) {
         return true;
     }
@@ -241,6 +221,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     public int getSinkTier() {
         return 6;
     }
+
     public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
         return this.getFacing() != side;
     }
@@ -256,6 +237,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
             this.addedToEnergyNet = true;
         }
     }
+
     public void onNetworkEvent(EntityPlayer player, int event) {
         // ++this.redstoneMode;
         // if (this.redstoneMode >= redstoneModes) {
@@ -264,6 +246,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
 
         // IC2.platform.messagePlayer(player, this.getredstoneMode(), new Object[0]);
     }
+
     public ItemStack getWrenchDrop(EntityPlayer entityPlayer) {
         // ItemStack ret = super.getWrenchDrop(entityPlayer);
         // float energyRetainedInStorageBlockDrops = ConfigUtil.getFloat(MainConfig.get(), "balance/energyRetainedInStorageBlockDrops");
@@ -314,6 +297,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
 
         ItemStack stack = inventory[index];
         inventory[index] = null;
+
         return stack;
     }
 
@@ -358,11 +342,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        if (stack.getItem() instanceof IElectricItem) {
-            return true;
-        }
-
-        return false;
+        return stack.getItem() instanceof IElectricItem;
     }
 }
 

@@ -16,13 +16,12 @@ public class Utils {
     public static String euEnergyToString(double energy) {
         double energyAbs = Math.abs(energy);
 
-        if(inRange(energyAbs, 0.0, 1000.0)) {
+        if(inRange(energyAbs, 0.0, 1000.0))
             return String.format("%.1f", energy);
-        } else if (inRange(energyAbs, 1000.0, 1000000.0)) {
+        else if (inRange(energyAbs, 1000.0, 1000000.0))
             return String.format("%.1fk", energy / 1000.0);
-        } else if (inRange(energyAbs, 1000000.0, 1000000000.0)) {
+        else if (inRange(energyAbs, 1000000.0, 1000000000.0))
             return String.format("%.1fM", energy / 1000000.0);
-        }
 
         return String.format("%.1fG", energy / 1000000000.0);
     }

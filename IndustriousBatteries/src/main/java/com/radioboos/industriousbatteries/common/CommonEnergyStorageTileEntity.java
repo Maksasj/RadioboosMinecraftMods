@@ -10,6 +10,7 @@ import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.network.INetworkClientTileEntityEventListener;
 import ic2.api.tile.IEnergyStorage;
+import ic2.api.tile.IWrenchable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -23,7 +24,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public class CommonEnergyStorageTileEntity extends TileEntity implements IInventory, IEnergySink, IEnergySource, IEnergyStorage, INetworkClientTileEntityEventListener {
+public class CommonEnergyStorageTileEntity extends TileEntity implements IInventory, IEnergySink, IEnergySource, IEnergyStorage, IWrenchable, INetworkClientTileEntityEventListener {
     public double storedEnergy;
     public double maxStoredEnergy;
     public double transferLimitEnergy;
@@ -32,6 +33,8 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     public double dischargePendingEnergy;
 
     public ForgeDirection facingDirection;
+    public short side;
+
     public ItemStack[] inventory;
     public boolean addedToEnergyNet;
 
@@ -45,7 +48,9 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
         this.chargePendingEnergy = 0.0;
         this.dischargePendingEnergy = 0.0;
 
-        this.facingDirection = ForgeDirection.UP;
+        this.side = 0;
+        this.facingDirection = ForgeDirection.VALID_DIRECTIONS[side];
+
         this.inventory = new ItemStack[20];
         this.addedToEnergyNet = false;
     }
@@ -96,9 +101,8 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
             NBTTagCompound itemCompound = tagList.getCompoundTagAt(itemCount);
             int slot = itemCompound.getByte("Slot") & 0xff;
 
-            if (slot >= 0 && slot < inventory.length) {
+            if (slot < inventory.length)
                 inventory[slot] = ItemStack.loadItemStackFromNBT(itemCompound);
-            }
         }
     }
 
@@ -158,12 +162,9 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
         return direction == facingDirection;
     }
 
-    public boolean facingMatchesDirection(ForgeDirection direction) {
-        return direction.ordinal() == this.getFacing();
-    }
-
-    private int getFacing() {
-        return facingDirection.ordinal();
+    @Override
+    public short getFacing() {
+        return side;
     }
 
     public double getOfferedEnergy() {
@@ -201,7 +202,7 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
     }
 
     public void setStored(int amount) {
-        this.storedEnergy = (double)amount;
+        this.storedEnergy = amount;
     }
 
     public int addEnergy(int amount) {
@@ -222,11 +223,17 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
         return 6;
     }
 
-    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int side) {
-        return this.getFacing() != side;
+    public boolean wrenchCanSetFacing(EntityPlayer entityPlayer, int s) {
+        return true;
     }
 
     public void setFacing(short facing) {
+        worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, facing, 2);
+
+        this.side = facing;
+        this.facingDirection = ForgeDirection.VALID_DIRECTIONS[facing];
+        System.out.println("side " + side + " facing " + facingDirection);
+
         if (this.addedToEnergyNet) {
             MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
         }
@@ -236,6 +243,16 @@ public class CommonEnergyStorageTileEntity extends TileEntity implements IInvent
             MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
             this.addedToEnergyNet = true;
         }
+    }
+
+    @Override
+    public boolean wrenchCanRemove(EntityPlayer entityPlayer) {
+        return true;
+    }
+
+    @Override
+    public float getWrenchDropRate() {
+        return 1.0f;
     }
 
     public void onNetworkEvent(EntityPlayer player, int event) {

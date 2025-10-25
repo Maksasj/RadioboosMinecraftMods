@@ -7,11 +7,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class CommonEnergyStorageContainer extends Container {
-    private CommonEnergyStorageTileEntity panel;
-
     public CommonEnergyStorageContainer(IInventory playerInventory, CommonEnergyStorageTileEntity panel) {
-        this.panel = panel;
-
         for(int i = 0; i < 16; ++i) {
             int row = i % 4;
             int collum = i / 4;
@@ -48,11 +44,10 @@ public class CommonEnergyStorageContainer extends Container {
                 return null;
             }
 
-            if (itemstack1.stackSize == 0) {
-                slot.putStack((ItemStack) null);
-            } else {
+            if (itemstack1.stackSize == 0)
+                slot.putStack(null);
+            else
                 slot.onSlotChanged();
-            }
         }
 
         return null;

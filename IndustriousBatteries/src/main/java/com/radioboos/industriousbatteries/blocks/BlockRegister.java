@@ -6,6 +6,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BlockRegister {
     static public CommonBlock TEST_BLOCK = new CommonBlock("testBlock");
+
     static public void register() {
         GameRegistry.registerBlock(TEST_BLOCK, CommonItemBlock.class, "testBlock");
     }

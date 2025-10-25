@@ -1,5 +1,6 @@
 package com.radioboos.industriousbatteries.common;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -7,12 +8,8 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 public class CommonItemBlock extends ItemBlock {
-    // private final CommonSolarPanelConfig config;
-
-    public CommonItemBlock(net.minecraft.block.Block block) {
+    public CommonItemBlock(Block block) {
         super(block);
-
-        // this.config = config;
     }
 
     @Override

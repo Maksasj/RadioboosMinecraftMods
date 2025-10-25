@@ -1,6 +1,8 @@
 package com.radioboos.industriousbatteries.gui;
 
 import com.radioboos.industriousbatteries.common.*;
+import com.radioboos.industriousbatteries.tiles.AdvancedBatteryStorageTileEntity;
+import com.radioboos.industriousbatteries.tiles.SimpleBatteryStorageTileEntity;
 import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -11,9 +13,14 @@ public class GuiHandler implements IGuiHandler {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity entity = world.getTileEntity(x, y, z);
 
-        if (entity instanceof BatteryStorageTileEntity) {
-            BatteryStorageTileEntity tile = (BatteryStorageTileEntity) entity;
-            return new CommonEnergyStorageContainer(player.inventory, tile);
+        if (entity instanceof SimpleBatteryStorageTileEntity) {
+            SimpleBatteryStorageTileEntity tile = (SimpleBatteryStorageTileEntity) entity;
+            return new SimpleEnergyStorageContainer(player.inventory, tile);
+        }
+
+        if (entity instanceof AdvancedBatteryStorageTileEntity) {
+            AdvancedBatteryStorageTileEntity tile = (AdvancedBatteryStorageTileEntity) entity;
+            return new AdvancedEnergyStorageContainer(player.inventory, tile);
         }
 
         return null;
@@ -23,9 +30,14 @@ public class GuiHandler implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity entity = world.getTileEntity(x, y, z);
 
-        if (entity instanceof BatteryStorageTileEntity) {
-            BatteryStorageTileEntity tile = (BatteryStorageTileEntity) entity;
-            return new CommonEnergyStorageGui(tile, new CommonEnergyStorageContainer(player.inventory, tile));
+        if (entity instanceof SimpleBatteryStorageTileEntity) {
+            SimpleBatteryStorageTileEntity tile = (SimpleBatteryStorageTileEntity) entity;
+            return new SimpleBatteryStorageGui(tile, new SimpleEnergyStorageContainer(player.inventory, tile));
+        }
+
+        if (entity instanceof AdvancedBatteryStorageTileEntity) {
+            AdvancedBatteryStorageTileEntity tile = (AdvancedBatteryStorageTileEntity) entity;
+            return new AdvancedBatteryStorageGui(tile, new AdvancedEnergyStorageContainer(player.inventory, tile));
         }
 
         return null;

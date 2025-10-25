@@ -36,6 +36,7 @@ repositories {
 }
 
 dependencies {
+    compile files('libs/ad-infinitumcore-1.1.jar')
     compile 'net.industrial-craft:industrialcraft-2:2.2.828-experimental:api'
 }
 

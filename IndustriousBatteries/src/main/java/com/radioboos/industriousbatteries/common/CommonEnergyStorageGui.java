@@ -8,10 +8,10 @@ import org.lwjgl.opengl.GL11;
 public class CommonEnergyStorageGui extends GuiContainer {
     public static final ResourceLocation guiTexture = new ResourceLocation("industriousbatteries", "textures/gui/GuiFirstIndustriousBatteries.png");
 
-    private final CommonEnergyStorageTileEntity entity;
+    private final BatteryStorageTileEntity entity;
     public static final int GUI_ID = 0;
 
-    public CommonEnergyStorageGui(CommonEnergyStorageTileEntity entity, Container container) {
+    public CommonEnergyStorageGui(BatteryStorageTileEntity entity, Container container) {
         super(container);
 
         this.entity = entity;

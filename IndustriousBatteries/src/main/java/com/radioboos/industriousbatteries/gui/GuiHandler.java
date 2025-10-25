@@ -11,8 +11,8 @@ public class GuiHandler implements IGuiHandler {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity entity = world.getTileEntity(x, y, z);
 
-        if (entity instanceof CommonEnergyStorageTileEntity) {
-            CommonEnergyStorageTileEntity tile = (CommonEnergyStorageTileEntity) entity;
+        if (entity instanceof BatteryStorageTileEntity) {
+            BatteryStorageTileEntity tile = (BatteryStorageTileEntity) entity;
             return new CommonEnergyStorageContainer(player.inventory, tile);
         }
 
@@ -23,8 +23,8 @@ public class GuiHandler implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity entity = world.getTileEntity(x, y, z);
 
-        if (entity instanceof CommonEnergyStorageTileEntity) {
-            CommonEnergyStorageTileEntity tile = (CommonEnergyStorageTileEntity) entity;
+        if (entity instanceof BatteryStorageTileEntity) {
+            BatteryStorageTileEntity tile = (BatteryStorageTileEntity) entity;
             return new CommonEnergyStorageGui(tile, new CommonEnergyStorageContainer(player.inventory, tile));
         }
 

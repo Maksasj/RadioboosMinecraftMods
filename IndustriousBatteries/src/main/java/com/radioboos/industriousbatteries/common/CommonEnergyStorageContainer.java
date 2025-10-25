@@ -7,20 +7,22 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class CommonEnergyStorageContainer extends Container {
-    public CommonEnergyStorageContainer(IInventory playerInventory, CommonEnergyStorageTileEntity panel) {
+    public CommonEnergyStorageContainer(IInventory playerInventory, BatteryStorageTileEntity storage) {
         for(int i = 0; i < 16; ++i) {
             int row = i % 4;
             int collum = i / 4;
 
-            addSlotToContainer(new Slot(panel, i, -1 + 18 * row, 3 + 18 * collum));
+            addSlotToContainer(new Slot(storage, i, -1 + 18 * row, 3 + 18 * collum));
         }
 
+        // Player inventory
         for (int inventoryRow = 0; inventoryRow < 3; inventoryRow++) {
             for (int inventoryColumn = 0; inventoryColumn < 9; inventoryColumn++) {
                 addSlotToContainer(new Slot(playerInventory, inventoryColumn + inventoryRow * 9 + 9, 8 + inventoryColumn * 18, 84 + inventoryRow * 18));
             }
         }
 
+        // Player hotbar
         for (int hotbarSlot = 0; hotbarSlot < 9; hotbarSlot++) {
             addSlotToContainer(new Slot(playerInventory, hotbarSlot, 8 + hotbarSlot * 18, 142));
         }
@@ -33,23 +35,6 @@ public class CommonEnergyStorageContainer extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-        ItemStack itemstack = null;
-        Slot slot = (Slot) this.inventorySlots.get(index);
-
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-
-            if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-                return null;
-            }
-
-            if (itemstack1.stackSize == 0)
-                slot.putStack(null);
-            else
-                slot.onSlotChanged();
-        }
-
         return null;
     }
 }

@@ -30,7 +30,7 @@ public class CommonBlock extends BlockContainer {
 
     @Override
     public TileEntity createNewTileEntity(World world, int metadata) {
-        return new CommonEnergyStorageTileEntity();
+        return new BatteryStorageTileEntity();
     }
 
     @Override
@@ -44,31 +44,6 @@ public class CommonBlock extends BlockContainer {
         player.openGui(IndustriousBatteries.instance, this.getGuiID(), world, x, y, z);
 
         return true;
-    }
-
-    @Override
-    public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
-        super.onBlockPreDestroy(world, x, y, z, meta);
-
-        // if(entity == null)
-        //     return;
-
-        /*
-        for(ItemStack stack : entity.getContents()) {
-            if(stack == null)
-                continue;
-
-            if (!world.isRemote && stack != null && stack.stackSize > 0) {
-                EntityItem entityItem = new EntityItem(world, x, y, z, stack.copy());
-
-                entityItem.motionX = 0;
-                entityItem.motionY = 0;
-                entityItem.motionZ = 0;
-
-                world.spawnEntityInWorld(entityItem);
-            }
-        }
-        */
     }
 
     @SideOnly(Side.CLIENT)
